@@ -1,5 +1,6 @@
 <?php
 session_start();
+error_reporting(0);
 include("../Feature/conexion.php");
 $arreglo = $_SESSION['carrito'];
 if(!isset($_SESSION['carrito'])){
@@ -35,6 +36,8 @@ unset($_SESSION['carrito']);
     <div class="site-section">
       <div class="container">
         <div class="row">
+
+        
           <div class="col-md-12 text-center">
             <span class="icon-check_circle display-3 text-success"></span>
             <h2 class="display-3 text-black">Gracias Por su Compra!</h2>
@@ -44,6 +47,7 @@ unset($_SESSION['carrito']);
         </div>
       </div>
     </div>
+    
     <?php include("../SideContent/footer.php"); ?> 
   </div>
   <script src="../Content/js/jquery-3.3.1.min.js"></script>

@@ -1,6 +1,7 @@
 <?php 
 include("../Feature/conexion.php");
 session_start();
+error_reporting(0);
 if(isset($_SESSION['carrito'])){
   if(isset($_GET['id'])){
     $arreglo=$_SESSION['carrito'];
@@ -89,12 +90,12 @@ if(isset($_SESSION['carrito'])){
               <table class="table table-bordered">
                 <thead>
                   <tr>
-                    <th class="product-thumbnail">Image</th>
-                    <th class="product-name">Product</th>
-                    <th class="product-price">Price</th>
-                    <th class="product-quantity">Quantity</th>
+                    <th class="product-thumbnail">Imagen</th>
+                    <th class="product-name">Producto</th>
+                    <th class="product-price">Precio</th>
+                    <th class="product-quantity">Cantidad</th>
                     <th class="product-total">Total</th>
-                    <th class="product-remove">Remove</th>
+                    <th class="product-remove">Remover</th>
                   </tr>
                 </thead>
                 <tbody>

@@ -1,3 +1,7 @@
+<?php 
+session_start();
+error_reporting(0);
+?>
 <header class="site-navbar" role="banner">
       <div class="site-navbar-top">
         <div class="container">
@@ -12,16 +16,17 @@
                 <a href="index.php" class="js-logo-clone">Mi Tienda</a>
               </div>
             </div>
-
             <div class="col-6 col-md-4 order-3 order-md-3 text-right">
               <div class="site-top-icons">
                 <ul>
                   <?php 
-                        session_start();
                         if(!isset($_SESSION['datosUser'])){?>
                           <li><a href="View/View-Login.php"><span class="icon icon-person"></span></a></li>
                   <?php  } ?>
+                        <?php
+                        if(isset($_SESSION['datosUser'])){?>
                   <li><a href="cerrarSesion.php"><span class="icon icon-sign-out"></span></a></li>
+                        <?php }?>
                   <li>
                     <a href="View-Cart/cart.php" class="site-cart">
                       <span class="icon icon-shopping_cart"></span>

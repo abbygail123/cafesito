@@ -247,7 +247,6 @@ function guardarOferta(){
     var precioFinal = $("#precioFinal").val();
     var precioInicial = $("#precioInicial").val();
     var tipo_operacion = "insertarOferta";
-    
     if(totalDescuento=="" || fechaDuracion=="" || idProducto=="" || precioFinal=="" || precioFinal=="" || precioInicial==""){
         toastr.error("Completar todos los campos");
     }else{
