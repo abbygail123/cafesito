@@ -16,9 +16,9 @@
       if($datos!=false)
       {
           $sesion=new CSesion();
-          $_SESSION['id']=$datos['id_usuario'];
+          $_SESSION['id']=$datos['idusuario'];
           $_SESSION['nombre']=$datos["usuario"];
-          $_SESSION['com']=$datos['nombrecompleto'];
+          $_SESSION['com']=$datos['nombre_u'];
           $_SESSION['foto']=$datos['foto'];
       
         
@@ -68,7 +68,7 @@
 
       <form action="login.php" method="post">
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Usuario" name="nUsuario">
+          <input type="text" class="form-control" placeholder="Usuario" name="nUsuario" autocomplete="off">
           <span class="input-group-append">
             <button type="button" class="btn btn-info">
               <span class="fas fa-user"> </span>

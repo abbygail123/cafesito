@@ -105,15 +105,15 @@ function guardarCliente()
         /* var cod=document.getElementById("idCodigo").value; */
         var usuario=document.getElementById("idUsuario").value;
         var nombre=document.getElementById("idNombres").value;
+        var apellido=document.getElementById("idApellidos").value;
         var telefono=document.getElementById("idTelefono").value;
         var dni=document.getElementById("idDni").value;
-        var dis=document.getElementById("idDistrito").value;
         var clave=document.getElementById("idClave").value;
         var op="guardarCliente";
         $.ajax({
             type:"POST",
             url:"../control/controlCliente.php",
-            data:{usuario,nombre,telefono,dni,dis,clave,op},
+            data:{usuario,nombre,apellido,telefono,dni,clave,op},
             dataType:"json",//JavaScript Object Notation
             success: function(respuesta){		  
                 if(respuesta.mensaje==true)

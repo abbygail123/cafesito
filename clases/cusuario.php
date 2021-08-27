@@ -17,7 +17,7 @@ function verificarUsuario($us,$pass,$conx)
 }
 function tablaClientes($conx)
 {
-    $query="select * from usuario u inner join distrito d on u.id_distrito=d.id_distrito order by id_usuario desc";
+    $query="select * from usuario order by idusuario desc";
     $resultado=mysqli_query($conx,$query);
 
     if(mysqli_num_rows($resultado)>0)
@@ -25,7 +25,7 @@ function tablaClientes($conx)
         $tabla.="<table data-toggle='table' data-pagination='true' data-search='true' class='table table-striped' id='idTabla'>
                     <thead class='table-info'>
                         <tr>
-                            <th class='text-center'>#</th><th>Usuario</th><th>Nombres</th><th>Telefono</th><th>Dni</th><th>Distrito</th><th class='text-center'>Foto</th><th class='text-center'>Acciones</th>
+                            <th class='text-center'>#</th><th>Usuario</th><th>Nombre</th><th>Apellido</th><th>Dni</th><th>Telefono</th><th class='text-center'>Foto</th><th class='text-center'>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>";
@@ -41,11 +41,11 @@ function tablaClientes($conx)
                     </div>";
           }
             $contador+=1;
-            $valor=$row["id_usuario"]; 
-            $tabla.="<tr><td>".$contador."</td><td>".$row['usuario']."</td><td>".$row['nombrecompleto']."</td><td>".$row['telefono']."</td><td>".$row['dni']."</td><td>".$row['distrito']."</td><td class='text-center'>".$foto."</td><td class='text-center'>";
+            $valor=$row["idusuario"]; 
+            $tabla.="<tr><td>".$contador."</td><td>".$row['usuario']."</td><td>".$row['nombre_u']."</td><td>".$row['apellido']."</td><td>".$row['dni']."</td><td>".$row['telefono']."</td><td class='text-center'>".$foto."</td><td class='text-center'>";
             $tabla.="<div class='btn-group'>
-                        <button type='button' class='btn btn-outline-info' onclick=\"mostrar('".$row['id_usuario']."')\"><i class='fas fa-user-edit'></i></button>
-                        <button type='button' class='btn btn-outline-danger' onclick=\"mensaje('".$row['id_usuario']."')\"><i class='fas fa-user-times'></i></button>
+                        <button type='button' class='btn btn-outline-info' onclick=\"mostrar('".$row['idusuario']."')\"><i class='fas fa-user-edit'></i></button>
+                        <button type='button' class='btn btn-outline-danger' onclick=\"mensaje('".$row['idusuario']."')\"><i class='fas fa-user-times'></i></button>
                     </div></td></tr>";
         }
         $tabla.="  </tbody>
@@ -54,10 +54,10 @@ function tablaClientes($conx)
     return $tabla;
 }
 
-function guardarCliente($usuario,$nombre,$apellidos,$clave,$dni,$telefono,$conx)
+function guardarCliente($usuario,$nombre,$apellido,$clave,$dni,$telefono,$conx)
   {
     
-    $query="insert into usuario (usuario,apellido,clave,dni,telefono) values('$usuario','$apellidos','$clave','$dni','$telefono')"; 
+    $query="insert into usuario (usuario,nombre_u,apellido,clave,dni,telefono) values('$usuario','$nombre','$apellido','$clave','$dni','$telefono')"; 
 
         //verficar
         /* $existe="select * from usuario where usuario='$usuario'";

@@ -1,5 +1,5 @@
 <?php
-    $conx=mysqli_connect('localhost','root','','tienda');// CREO LA CONEXION
+    $conx=mysqli_connect('localhost','root','','cafe');// CREO LA CONEXION
     require("../clases/cusuario.php");
     $op=$_POST['op'];
     
@@ -13,12 +13,12 @@
       
         $usuario=$_POST['usuario'];
         $nombre=$_POST['nombre'];
-        $apellidos=$_POST['apellido'];
-        $telefono=$_POST['telefono'];
-        $dni=$_POST['dni'];
+        $apellido=$_POST['apellido'];
         $clave=$_POST['clave'];
+        $dni=$_POST['dni'];
+        $telefono=$_POST['telefono'];
 
-        $salida=guardarCliente($usuario,$nombre,$apellidos,$clave,$dni,$telefono,$conx);
+        $salida=guardarCliente($usuario,$nombre,$apellido,$clave,$dni,$telefono,$conx);
         if($salida==true){
             $tabla=tablaClientes($conx);
         }

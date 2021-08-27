@@ -111,14 +111,15 @@ function guardarCliente()
         var usuario=document.getElementById("idUsuario").value;
         var nombre=document.getElementById("idNombres").value;
         var apellido=document.getElementById("idApellidos").value;
-        var telefono=document.getElementById("idTelefono").value;
-        var dni=document.getElementById("idDni").value;
         var clave=document.getElementById("idClave").value;
+        var dni=document.getElementById("idDni").value;
+        var telefono=document.getElementById("idTelefono").value;
+        
         var op="guardarCliente";
         $.ajax({
             type:"POST",
             url:"../control/controlCliente.php",
-            data:{usuario,nombre,apellido,telefono,dni,clave,op},
+            data:{usuario,nombre,apellido,clave,dni,telefono,op},
             dataType:"json",//JavaScript Object Notation
             success: function(respuesta){		  
                 if(respuesta.mensaje==true)

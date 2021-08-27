@@ -55,7 +55,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <div  id="grupo_usuario"  class="form-group ">
                         <label>Usuario</label>
                           <div class="formulario__grupo">
-                              <input type="text" name="usuario" class="form-control" id="idUsuario" required>
+                              <input type="text" name="usuario" class="form-control" id="idUsuario" required autocomplete="off">
                               <i class="formulario__validacion-estado fas fa-times"></i>
                           </div>
                           <p class="formulario__input-error">Sólo puede contener números, letras y guion bajo.</p>
@@ -67,7 +67,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <div id="grupo_nombre" class="form-group">
                         <label>Nombre</label>
                           <div class="formulario__grupo">
-                              <input name="nombre" type="text" class="form-control" id="idNombres" required>
+                              <input name="nombre" type="text" class="form-control" id="idNombres" required autocomplete="off">
                               <i class="formulario__validacion-estado fas fa-times"></i>
                           </div>
                           <p class="formulario__input-error">Sólo puede contener letras y espacios.</p>
@@ -77,7 +77,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <div id="grupo_apellidos" class="form-group">
                         <label>Apellidos</label>
                           <div class="formulario__grupo">
-                              <input name="apellidos" type="text" class="form-control" id="idApellidos" required>
+                              <input name="apellidos" type="text" class="form-control" id="idApellidos" required autocomplete="off">
                               <i class="formulario__validacion-estado fas fa-times"></i>
                           </div>
                           <p class="formulario__input-error">Sólo puede contener letras y espacios.</p>
