@@ -1,0 +1,43 @@
+.formulario__grupo {
+	position: relative;
+}
+
+.formulario__input-error {
+	font-size: 12px;
+	margin-bottom: 0;
+	display: none;
+	text-align: justify;
+	color:red;
+}
+
+.formulario__input-error-activo {
+	display: block;
+}
+
+.formulario__validacion-estado {
+	position: absolute;
+	right: 10px;
+	bottom: 15px;
+	z-index: 100;
+	font-size: 16px;
+	opacity: 0;
+}
+/*  ----- -----  Estilos para Validacion ----- ----- */
+.formulario__grupo-correcto .formulario__validacion-estado{
+	color: #1ed12d;
+	opacity: 1;
+}
+
+/* .formulario__grupo-incorrecto .flabel {
+	color: #bb2929;
+} */
+
+.formulario__grupo-incorrecto .formulario__validacion-estado, .formulario__grupo-incorrecto input  {
+	border-color: #bb2929;
+	color: #bb2929;
+	opacity: 1;
+}
+
+/* .formulario__grupo-incorrecto .formulario__input {
+	border: 3px solid #bb2929;
+} */
