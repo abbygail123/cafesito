@@ -1,6 +1,7 @@
 <?php
-    
-    class CSesion{
+
+class CSesion
+{
 
     function __construct()
     {
@@ -9,7 +10,7 @@
 
     function conexion()
     {
-        $conx=mysqli_connect('localhost','root','','cafe');
+        $conx = mysqli_connect('localhost', 'root', '', 'cafe');
         return $conx;
     }
 
@@ -20,11 +21,8 @@
 
     function validarSesion()
     {
-        if(!isset($_SESSION['id']))
-        {
+        if (!isset($_SESSION['id'])) {
             header("LOCATION: ../login/login.php");
         }
     }
-
-
-    }
+}

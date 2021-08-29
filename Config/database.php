@@ -1,8 +1,7 @@
 <?php
 class Conexion
 {
-
-    public static function conexion()
+    function Conexion()
     {
         $nameDataBase = 'cafe';
         $motor = "mysql";
