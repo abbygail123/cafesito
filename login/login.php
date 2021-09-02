@@ -3,8 +3,6 @@
    $sesion=new CSesion();
    $sesion->cerrarSesion();//cerrar sesion 
    $conx=$sesion->conexion();
-
-
    if(isset($_POST['nIngresar']))
    {
       $us=$_POST['nUsuario'];

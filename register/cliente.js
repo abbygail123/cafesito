@@ -97,6 +97,7 @@ cuadros.forEach((input) => {
 
 function guardarCliente()
 {
+    var frmData = new  FormData;
     var id_= document.getElementById("buGuardar").value;
     if(id_==0)
     {   
@@ -105,37 +106,33 @@ function guardarCliente()
             document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
                 icono.classList.remove('formulario__grupo-correcto');
             });
-          
-        
-        /* var cod=document.getElementById("idCodigo").value; */
-        var usuario=document.getElementById("idUsuario").value;
-        var nombre=document.getElementById("idNombres").value;
-        var apellido=document.getElementById("idApellidos").value;
-        var clave=document.getElementById("idClave").value;
-        var dni=document.getElementById("idDni").value;
-        var telefono=document.getElementById("idTelefono").value;
-        
+        frmData.append("Usuario", $("#idUsuario").val());
+        frmData.append("Nombres", $("#idNombres").val());
+        frmData.append("Apellidos", $("#idApellidos").val());
+        frmData.append("Clave", $("#idClave").val());
+        frmData.append("Dni", $("#idDni").val());
+        frmData.append("Telefono", $("#idTelefono").val());
+        var imagen = document.getElementById('file').files[0];
+        frmData.append("Imagen",imagen);
         var op="guardarCliente";
+        frmData.append("op",op);
         $.ajax({
-            type:"POST",
-            url:"../control/controlCliente.php",
-            data:{usuario,nombre,apellido,clave,dni,telefono,op},
-            dataType:"json",//JavaScript Object Notation
-            success: function(respuesta){		  
-                if(respuesta.mensaje==true)
-                {
-                   alert('Se agrego correctamente');
-                   window.location.assign("../login/login.php");
-                   document.getElementById("idLista").innerHTML=respuesta.tabla;  
-                   $("#idTabla").bootstrapTable();
-                   clear();
-                }
-                else
-                {
-                  alert(respuesta.mensaje);
+            url: "../Controller/UserController.php",
+            type: "post",
+            data: frmData,
+            contentType: false,
+            cache: false,
+            processData:false,
+            //dataType:"json",//JavaScript Object Notation
+            success: function(obj){
+                console.log(obj);
+                if(obj=="registrado"){
+                    alert("registrado correctamente");
+                }else{
+                    console.log("error");
                 }
             }
-        });	 
+        });
         }else{
             toastr.error('Complete correctamente los datos');
         }     
@@ -146,7 +143,7 @@ function guardarCliente()
             document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
                 icono.classList.remove('formulario__grupo-correcto');
             });
-        modificarCliente(id_);
+       
         }else{
             toastr.error('Complete correctamente los datos');
         } 

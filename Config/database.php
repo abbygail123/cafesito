@@ -1,18 +1,17 @@
 <?php
-class Conexion
-{
-    function Conexion()
-    {
-        $nameDataBase = 'cafe';
-        $motor = "mysql";
-        $servidor = "localhost";
-        try { //manejos de excepciones <--
-            $cadena = "$motor:host=$servidor;dbname=$nameDataBase";
-            $conexion = new PDO($cadena, 'root', '');
-            //return $conexion;
-            echo "CONNECT TO DATABASE";
-        } catch (Exception $e) {
-            echo $e->getMessage();
+class Conexion{
+    public static function conexion(){
+        $nameDataBase='cafe';
+        $motor="mysql";
+        $servidor="localhost";
+        try{
+            $cadena="$motor:host=$servidor;dbname=$nameDataBase";
+            $conexion = new PDO($cadena,'root','');
+            return $conexion;
+            echo "conectado a la base de datos";
+        }catch(SQLException $e) {
+            echo "error en la conección".$e->getMessage();
         }
-    }
+    } 
 }
+?>
