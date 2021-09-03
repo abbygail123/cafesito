@@ -8,9 +8,8 @@ class UserDAO
     {
         $this->cnx = Conexion::conexion(); // ->  y  :: da a conocer el llamado de la clase y el método
     }
-    
-    public function generateRamdonCode()
-    {
+
+    public function generateRamdonCode(){
         $chars = "0123456789";
         $res = "";
         for ($i = 0; $i < 5; $i++) {
@@ -19,8 +18,7 @@ class UserDAO
         return $res;
     }
 
-    public function registerUser($obj)
-    {
+    public function registerUser($obj){
         $id       = $obj->getIdUsuario();
         $usuario  = $obj->getUsuario();
         $nombre   = $obj->getNombre();
@@ -45,9 +43,6 @@ class UserDAO
         }
         echo "registrado";
     }
-
-
-
     public function sendImageUser($cloud,$id)
     {
         $sql = "insert into imagen_usuario(idimagen,idusuario,url_imagen)  values(?,?,?)";
@@ -58,17 +53,43 @@ class UserDAO
         $rs->execute();
     }
 
+    public function LoginUser($username,$password){ 
+        $sql="SELECT * FROM usuario WHERE usuario = ? and clave =?";    
+        $rs = $this->cnx->prepare($sql);
+        $rs->bindParam(1,$username);
+        $rs->bindParam(2,$password);
+        $rs->execute();//ejecuta en la base de datos 
+        if($rs->rowCount()==1){
+            session_start();
+            $reg = $rs->fetchObject();
+            $_SESSION['id'] = $reg->idusuario;
+            $_SESSION['nombre'] = $reg->nombre;
+            $_SESSION['apellido'] = $reg->apellido;
+            $_SESSION['dni']= $reg->dni;
+            $_SESSION['telefono'] = $reg->telefono;
+            $_SESSION['usuario'] = $reg->usuario;
+            $_SESSION['clave'] = $reg->clave;
+            header("Location: ../gerencia/usuario.php");   
+        }else {
+            echo "<script>
+            alert('Verifique su usaurio o contraseña');
+            window.location= '../login/login.php'
+            </script>";
+        }
+   }
 /*
 ejemplos de los metodos de arriba;
     $a =5;
     $b =6;
-
-    public function darValores(){
+    public function darValores(){ 
         $this->sumar($a,$b);
     }
-    public function sumar($p1,p2){
+    public function sumar($p1,$p2){ 
          echo $resultado = $p1 + $p2;
     }
 */
 }
+/*
+$clase = new UserDAO(); //se ejecuta primero el constructor <--
+$clase->LoginUser("alexander","alexander");*/
 ?>

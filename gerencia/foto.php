@@ -11,9 +11,6 @@
         <input type="file"  name="imagen" id="imagen" value="">
         <br><br>
         <button type="submit">Yes</button>
-
-
-    
     </form>
 </body>
 </html>

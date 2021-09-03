@@ -126,6 +126,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                 </div>
                 <div>
+                <label> Elegir Imagen</label>
                   <input type="file" id="file" name="file" value="Escoger img">
                 </div>
               </div>

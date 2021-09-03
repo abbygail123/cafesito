@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 27-08-2021 a las 21:13:40
--- Versión del servidor: 5.7.31
--- Versión de PHP: 7.3.21
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 03-09-2021 a las 00:25:15
+-- Versión del servidor: 10.4.17-MariaDB
+-- Versión de PHP: 8.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,15 +24,13 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `categorias`
+-- Estructura de tabla para la tabla `categoria`
 --
 
-DROP TABLE IF EXISTS `categorias`;
-CREATE TABLE IF NOT EXISTS `categorias` (
-  `idcategorias` int(11) NOT NULL AUTO_INCREMENT,
-  `categorias` varchar(45) NOT NULL,
-  PRIMARY KEY (`idcategorias`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `categoria` (
+  `idcategoria` int(11) NOT NULL,
+  `categoria` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -40,54 +38,65 @@ CREATE TABLE IF NOT EXISTS `categorias` (
 -- Estructura de tabla para la tabla `historial_compra`
 --
 
-DROP TABLE IF EXISTS `historial_compra`;
-CREATE TABLE IF NOT EXISTS `historial_compra` (
-  `idhistorial_compra` int(11) NOT NULL AUTO_INCREMENT,
-  `nomre_producto` varchar(45) NOT NULL,
-  `precio_produ_uni` decimal(10,2) NOT NULL,
+CREATE TABLE `historial_compra` (
+  `idhistorial` int(11) NOT NULL,
+  `idproducto` varchar(20) NOT NULL,
+  `idusuario` varchar(20) NOT NULL,
+  `nombre_usuario` varchar(20) NOT NULL,
+  `nombre_producto` varchar(50) NOT NULL,
+  `precio_producto` decimal(10,2) NOT NULL,
   `cantidad_comprada` int(11) NOT NULL,
   `total_pagar` decimal(10,2) NOT NULL,
-  `fecha_compra` date NOT NULL,
-  `fk_idproductos` int(11) NOT NULL,
-  `fk_idusuario` int(11) NOT NULL,
-  PRIMARY KEY (`idhistorial_compra`),
-  KEY `fk_historial_compra_productos1_idx` (`fk_idproductos`),
-  KEY `fk_historial_compra_usuario1_idx` (`fk_idusuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `fecha` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `imagenes_pro`
+-- Estructura de tabla para la tabla `imagen_producto`
 --
 
-DROP TABLE IF EXISTS `imagenes_pro`;
-CREATE TABLE IF NOT EXISTS `imagenes_pro` (
-  `idimagenes_pro` int(11) NOT NULL AUTO_INCREMENT,
-  `imagenes_procol` varchar(45) DEFAULT NULL,
-  `fk_idproductos` int(11) NOT NULL,
-  PRIMARY KEY (`idimagenes_pro`),
-  KEY `fk_imagenes_pro_productos1_idx` (`fk_idproductos`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `imagen_producto` (
+  `idimagen` varchar(150) NOT NULL,
+  `idproducto` varchar(20) NOT NULL,
+  `url_imagen` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `productos`
+-- Estructura de tabla para la tabla `imagen_usuario`
 --
 
-DROP TABLE IF EXISTS `productos`;
-CREATE TABLE IF NOT EXISTS `productos` (
-  `idproductos` int(11) NOT NULL AUTO_INCREMENT,
-  `nombres_pro` varchar(45) NOT NULL,
+CREATE TABLE `imagen_usuario` (
+  `idimagen` varchar(150) NOT NULL,
+  `idusuario` varchar(20) NOT NULL,
+  `url_imagen` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `imagen_usuario`
+--
+
+INSERT INTO `imagen_usuario` (`idimagen`, `idusuario`, `url_imagen`) VALUES
+('jceeeffiqqzhio9b06pn', '02250', 'http://res.cloudinary.com/dauz6sio9/image/upload/v1630617864/jceeeffiqqzhio9b06pn.png');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `producto`
+--
+
+CREATE TABLE `producto` (
+  `idproducto` varchar(20) NOT NULL,
+  `idusuario` varchar(20) NOT NULL,
+  `nombre` int(100) NOT NULL,
   `stock` int(11) NOT NULL,
   `precio_compra` decimal(10,2) NOT NULL,
   `precio_venta` decimal(10,2) NOT NULL,
-  `descripcion` varchar(45) NOT NULL,
-  `fk_idcategorias` int(11) NOT NULL,
-  PRIMARY KEY (`idproductos`),
-  KEY `fk_productos_categorias1_idx` (`fk_idcategorias`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `descripcion` varchar(200) NOT NULL,
+  `idcategoria` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -95,18 +104,22 @@ CREATE TABLE IF NOT EXISTS `productos` (
 -- Estructura de tabla para la tabla `usuario`
 --
 
-DROP TABLE IF EXISTS `usuario`;
-CREATE TABLE IF NOT EXISTS `usuario` (
-  `idusuario` int(11) NOT NULL AUTO_INCREMENT,
-  `usuario` varchar(45) NOT NULL,
-  `nombre_u` varchar(50) NOT NULL,
-  `apellido` varchar(45) NOT NULL,
-  `clave` varchar(45) NOT NULL,
-  `dni` varchar(45) NOT NULL,
-  `telefono` varchar(45) NOT NULL,
-  `foto` varchar(150) DEFAULT NULL,
-  PRIMARY KEY (`idusuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `usuario` (
+  `idusuario` varchar(20) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `apellido` varchar(100) NOT NULL,
+  `dni` varchar(8) NOT NULL,
+  `telefono` varchar(50) NOT NULL,
+  `usuario` varchar(100) NOT NULL,
+  `clave` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`idusuario`, `nombre`, `apellido`, `dni`, `telefono`, `usuario`, `clave`) VALUES
+('02250', 'alexander', 'alexander', '31212312', '123213113', 'alexander', 'alexander');
 
 -- --------------------------------------------------------
 
@@ -114,18 +127,11 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 -- Estructura de tabla para la tabla `vendedor`
 --
 
-DROP TABLE IF EXISTS `vendedor`;
-CREATE TABLE IF NOT EXISTS `vendedor` (
-  `idvendedor` int(11) NOT NULL AUTO_INCREMENT,
-  `usuario_vended` varchar(45) NOT NULL,
-  `nombre_vended` varchar(45) NOT NULL,
-  `apellido_vended` varchar(45) NOT NULL,
-  `clave` varchar(45) NOT NULL,
-  `dni` varchar(45) NOT NULL,
-  `telefono` varchar(45) NOT NULL,
-  `foto` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idvendedor`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `vendedor` (
+  `id_vendedor` int(11) NOT NULL,
+  `id_usuario` varchar(20) NOT NULL,
+  `tipo_usuario` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -133,18 +139,99 @@ CREATE TABLE IF NOT EXISTS `vendedor` (
 -- Estructura de tabla para la tabla `venta`
 --
 
-DROP TABLE IF EXISTS `venta`;
-CREATE TABLE IF NOT EXISTS `venta` (
-  `idventa` int(11) NOT NULL AUTO_INCREMENT,
-  `fecha` date NOT NULL,
-  `total_compra` decimal(10,2) NOT NULL,
-  `cantidad_vender` int(11) NOT NULL,
-  `fk_idvendedor` int(11) NOT NULL,
-  `fk_idproductos` int(11) NOT NULL,
-  PRIMARY KEY (`idventa`),
-  KEY `fk_venta_vendedor_idx` (`fk_idvendedor`),
-  KEY `fk_venta_productos1_idx` (`fk_idproductos`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `venta` (
+  `idventa` int(11) NOT NULL,
+  `fecha_venta` date NOT NULL,
+  `cantidad_venta` int(11) NOT NULL,
+  `idproducto` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `categoria`
+--
+ALTER TABLE `categoria`
+  ADD PRIMARY KEY (`idcategoria`);
+
+--
+-- Indices de la tabla `historial_compra`
+--
+ALTER TABLE `historial_compra`
+  ADD PRIMARY KEY (`idhistorial`),
+  ADD KEY `historial_usuario` (`idusuario`);
+
+--
+-- Indices de la tabla `imagen_producto`
+--
+ALTER TABLE `imagen_producto`
+  ADD PRIMARY KEY (`idimagen`),
+  ADD KEY `imagen_producto` (`idproducto`);
+
+--
+-- Indices de la tabla `imagen_usuario`
+--
+ALTER TABLE `imagen_usuario`
+  ADD PRIMARY KEY (`idimagen`),
+  ADD KEY `imagen_usuario` (`idusuario`);
+
+--
+-- Indices de la tabla `producto`
+--
+ALTER TABLE `producto`
+  ADD PRIMARY KEY (`idproducto`),
+  ADD KEY `producto_categoria` (`idcategoria`),
+  ADD KEY `producto_usuario` (`idusuario`);
+
+--
+-- Indices de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`idusuario`);
+
+--
+-- Indices de la tabla `vendedor`
+--
+ALTER TABLE `vendedor`
+  ADD PRIMARY KEY (`id_vendedor`),
+  ADD KEY `tipo_usuario` (`id_usuario`);
+
+--
+-- Indices de la tabla `venta`
+--
+ALTER TABLE `venta`
+  ADD PRIMARY KEY (`idventa`),
+  ADD KEY `venta_producto` (`idproducto`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `categoria`
+--
+ALTER TABLE `categoria`
+  MODIFY `idcategoria` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `historial_compra`
+--
+ALTER TABLE `historial_compra`
+  MODIFY `idhistorial` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `vendedor`
+--
+ALTER TABLE `vendedor`
+  MODIFY `id_vendedor` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `venta`
+--
+ALTER TABLE `venta`
+  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
@@ -154,27 +241,38 @@ CREATE TABLE IF NOT EXISTS `venta` (
 -- Filtros para la tabla `historial_compra`
 --
 ALTER TABLE `historial_compra`
-  ADD CONSTRAINT `fk_historial_compra_productos1` FOREIGN KEY (`fk_idproductos`) REFERENCES `productos` (`idproductos`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_historial_compra_usuario1` FOREIGN KEY (`fk_idusuario`) REFERENCES `usuario` (`idusuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `historial_usuario` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `imagenes_pro`
+-- Filtros para la tabla `imagen_producto`
 --
-ALTER TABLE `imagenes_pro`
-  ADD CONSTRAINT `fk_imagenes_pro_productos1` FOREIGN KEY (`fk_idproductos`) REFERENCES `productos` (`idproductos`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `imagen_producto`
+  ADD CONSTRAINT `imagen_producto` FOREIGN KEY (`idproducto`) REFERENCES `producto` (`idproducto`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `productos`
+-- Filtros para la tabla `imagen_usuario`
 --
-ALTER TABLE `productos`
-  ADD CONSTRAINT `fk_productos_categorias1` FOREIGN KEY (`fk_idcategorias`) REFERENCES `categorias` (`idcategorias`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `imagen_usuario`
+  ADD CONSTRAINT `imagen_usuario` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `producto`
+--
+ALTER TABLE `producto`
+  ADD CONSTRAINT `producto_categoria` FOREIGN KEY (`idcategoria`) REFERENCES `categoria` (`idcategoria`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `producto_usuario` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `vendedor`
+--
+ALTER TABLE `vendedor`
+  ADD CONSTRAINT `tipo_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`idusuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `venta`
 --
 ALTER TABLE `venta`
-  ADD CONSTRAINT `fk_venta_productos1` FOREIGN KEY (`fk_idproductos`) REFERENCES `productos` (`idproductos`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_venta_vendedor` FOREIGN KEY (`fk_idvendedor`) REFERENCES `vendedor` (`idvendedor`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `venta_producto` FOREIGN KEY (`idproducto`) REFERENCES `producto` (`idproducto`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

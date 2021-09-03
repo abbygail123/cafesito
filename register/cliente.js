@@ -127,7 +127,8 @@ function guardarCliente()
             success: function(obj){
                 console.log(obj);
                 if(obj=="registrado"){
-                    alert("registrado correctamente");
+                    clear();
+                    window.location.assign("../login/login.php");
                 }else{
                     console.log("error");
                 }
@@ -159,9 +160,9 @@ function clear()
     document.getElementById("idNombres").value="";
     document.getElementById("idTelefono").value="";
     document.getElementById("idDni").value="";
-    document.getElementById("idDistrito").value="";
     document.getElementById("idClave").value="";
     document.getElementById("idclave2").value="";
+    $("#file").val("");
 }
 
 

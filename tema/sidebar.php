@@ -16,10 +16,10 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="../fotos/<?=$_SESSION['foto'];?>" class="img-circle elevation-2" alt="User Image">
+          <img src="https://res.cloudinary.com/dauz6sio9/image/upload/v1630546560/q9nwqexpsqoegs3shth1.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="perfil.php" class="d-block"><?=$_SESSION['nombre'];?></a>
+          <a href="perfil.php" class="d-block">Jhon Alexander</a>
         </div>
       </div>
 
@@ -29,7 +29,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="home.php" class="nav-link active">
+            <a href="../gerencia/usuario.php" class="nav-link active">
               <i class="nav-icon fas fa-home"></i>
               <p>
                 inicio

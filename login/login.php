@@ -1,39 +1,6 @@
 <?php
-   require_once("../clases/csesion.php");
-   $sesion=new CSesion();
-   $sesion->cerrarSesion();//cerrar sesion 
-   $conx=$sesion->conexion();
-   if(isset($_POST['nIngresar']))
-   {
-      $us=$_POST['nUsuario'];
-      $pass=($_POST['nPass']);
-    
-      require_once("../clases/cusuario.php");
-      $datos=verificarUsuario($us,$pass,$conx);
-      
-      if($datos!=false)
-      {
-          $sesion=new CSesion();
-          $_SESSION['id']=$datos['idusuario'];
-          $_SESSION['nombre']=$datos["usuario"];
-          $_SESSION['com']=$datos['nombre_u'];
-          $_SESSION['foto']=$datos['foto'];
-      
-        
-            header("LOCATION: ../gerencia/usuario.php");
-          
-         
-      }
-      else
-      {
-          $mensaje="El usuario o contraseña no son válidos";
-      }
-
-     
-
-   }
-
- 
+  
+  
 ?>
 <!DOCTYPE html>
 <html>
@@ -64,9 +31,9 @@
     <div class="card-body ">
       
 
-      <form action="login.php" method="post">
+      <form action="../Controller/UserLogin.php" method="post">
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Usuario" name="nUsuario" autocomplete="off">
+          <input type="text" class="form-control" placeholder="Usuario" name="usuario" autocomplete="off">
           <span class="input-group-append">
             <button type="button" class="btn btn-info">
               <span class="fas fa-user"> </span>
@@ -74,7 +41,7 @@
           </span>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Contraseña" name="nPass">
+          <input type="password" class="form-control" placeholder="Contraseña" name="contraseña">
             <span class="input-group-append">
               <button type="button" class="btn btn-danger">
                 <span class="fas fa-lock"> </span>
@@ -100,7 +67,7 @@
       <!-- /.social-auth-links -->
 
       <p class="text-center text-danger">
-        <?=$mensaje;?>
+        
       </p>
     </div>
     <!-- /.login-card-body -->

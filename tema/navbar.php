@@ -68,7 +68,7 @@
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="../dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+              <img src="" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   Nora Silvester
@@ -116,9 +116,9 @@
             <ul class="dropdown-menu" style="width:120px">
               <!-- User image -->
               <li class="user-header" style="margin-bottom:-35px">
-                <img src="../fotos/<?=$_SESSION['foto'];?>" class="img-circle" alt="<?=$_SESSION['id'];?>">
+                <!-- <img src="../fotos/<?=$_SESSION['foto'];?>" class="img-circle" alt="<?=$_SESSION['id'];?>"> -->
                 <p>
-                  <?=$_SESSION['nombre'];?>
+                  <!-- <?=$_SESSION['nombre'];?>-->
                 </p>
               </li>
               <!-- Menu Body -->
