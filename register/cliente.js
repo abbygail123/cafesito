@@ -89,14 +89,7 @@ cuadros.forEach((input) => {
 	input.addEventListener('blur', validar);
 });
 
-
-
-
-
-
-
-function guardarCliente()
-{
+function guardarCliente(){
     var frmData = new  FormData;
     var id_= document.getElementById("buGuardar").value;
     if(id_==0)
@@ -117,7 +110,7 @@ function guardarCliente()
         var op="guardarCliente";
         frmData.append("op",op);
         $.ajax({
-            url: "../Controller/UserController.php",
+            url: "../Controller/Controller-User.php",
             type: "post",
             data: frmData,
             contentType: false,
@@ -151,11 +144,7 @@ function guardarCliente()
     }
 }
 
-
- 
-
-function clear()
-{   
+function clear(){   
     document.getElementById("idUsuario").value="";
     document.getElementById("idNombres").value="";
     document.getElementById("idTelefono").value="";

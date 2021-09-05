@@ -1,3 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
@@ -15,7 +25,7 @@
     <!-- SEARCH FORM -->
     <form class="form-inline ml-3">
       <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+        <input class="form-control form-control-navbar" type="search" placeholder="Buscar" aria-label="Search">
         <div class="input-group-append">
           <button class="btn btn-navbar" type="submit">
             <i class="fas fa-search"></i>
@@ -84,7 +94,7 @@
           <a href="venpedidos.php" class="dropdown-item dropdown-footer">See All Messages</a>
         </div>
       </li>
-      <!-- Notifications Dropdown Menu -->
+      <!-- Notifications carrito de compras Menu -->
       <li class="nav-item dropdown">
           <a class="nav-link"  href="venta.php">
             <i  class="fas fa-shopping-bag"></i>
@@ -97,28 +107,21 @@
                       ?>
                     </span>
           </a>
-
       </li>
-     
-    <!--   <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i
-            class="fas fa-th-large"></i></a>
-      </li> -->
-      
     </ul>
      <!-- menu agregado--> 
    <ul class="navbar-nav">
      <li class="dropdown user user-menu" style="margin-left:10px">
             <a href="" class="text-danger dropdown-toggle" data-toggle="dropdown">
             <i class="fas fa-user-circle"></i>
-              <!-- <span><?=$_SESSION['nombre'];?></span> -->
+               <span> <?php echo $_SESSION['usuario'];?></span>
             </a>
             <ul class="dropdown-menu" style="width:120px">
               <!-- User image -->
               <li class="user-header" style="margin-bottom:-35px">
-                <!-- <img src="../fotos/<?=$_SESSION['foto'];?>" class="img-circle" alt="<?=$_SESSION['id'];?>"> -->
+                 <img src="<?php echo $_SESSION['url'];?>" class="img-circle" alt="">
                 <p>
-                  <!-- <?=$_SESSION['nombre'];?>-->
+                <?php echo $_SESSION['nombre'] ." ". $_SESSION['apellido'];?> 
                 </p>
               </li>
               <!-- Menu Body -->
@@ -128,7 +131,7 @@
                   <a href="perfil.php" class="btn btn-info btn-sm"><i class="far fa-address-card"></i></a>
                 </div>
                 <div class="float-right">
-                  <a href="../login/login.php" class="btn btn-danger btn-sm center-block"><i class="fas fa-sign-out-alt"></i></a>
+                  <a href="../cerrarSesion.php" class="btn btn-danger btn-sm center-block"><i class="fas fa-sign-out-alt"></i></a>
                 </div>
               </li> 
               <!-- <a class="nav-link" href="../login/login.php">
@@ -136,3 +139,5 @@
       </a> -->
                         
   </nav>
+</body>
+</html>

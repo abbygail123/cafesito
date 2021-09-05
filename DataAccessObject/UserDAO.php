@@ -26,7 +26,8 @@ class UserDAO
         $clave    = $obj->getClave();
         $dni      = $obj->getDni();
         $telefono = $obj->getTelefono();
-        $sql = "insert into usuario(idusuario,nombre,apellido,dni,telefono,usuario,clave) values(?,?,?,?,?,?,?)";
+        $tipo = "Cliente";
+        $sql = "insert into usuario(idusuario,nombre,apellido,dni,telefono,usuario,clave,tipo) values(?,?,?,?,?,?,?,?)";
         $rs = $this->cnx->prepare($sql);
         $rs->bindParam(1, $id);
         $rs->bindParam(2, $nombre);
@@ -35,6 +36,7 @@ class UserDAO
         $rs->bindParam(5, $telefono);
         $rs->bindParam(6, $usuario);
         $rs->bindParam(7, $clave);
+        $rs->bindParam(8, $tipo);
         $rs->execute();
         if ($rs){
             $api = new ApiCloudinary();
@@ -54,12 +56,13 @@ class UserDAO
     }
 
     public function LoginUser($username,$password){ 
-        $sql="SELECT * FROM usuario WHERE usuario = ? and clave =?";    
+        $sql="SELECT u.idusuario,u.nombre,u.apellido,u.dni,u.telefono,u.usuario,u.clave,u.tipo,i.idimagen,i.url_imagen
+        FROM usuario u inner join imagen_usuario i  WHERE u.usuario = ? and u.clave =?";    
         $rs = $this->cnx->prepare($sql);
         $rs->bindParam(1,$username);
         $rs->bindParam(2,$password);
         $rs->execute();//ejecuta en la base de datos 
-        if($rs->rowCount()==1){
+        if($rs->rowCount()>0){
             session_start();
             $reg = $rs->fetchObject();
             $_SESSION['id'] = $reg->idusuario;
@@ -69,13 +72,24 @@ class UserDAO
             $_SESSION['telefono'] = $reg->telefono;
             $_SESSION['usuario'] = $reg->usuario;
             $_SESSION['clave'] = $reg->clave;
+            $_SESSION['id_imagen'] = $reg->idimagen;
+            $_SESSION['url'] = $reg->url_imagen;
             header("Location: ../gerencia/usuario.php");   
-        }else {
-            echo "<script>
-            alert('Verifique su usaurio o contraseña');
-            window.location= '../login/login.php'
-            </script>";
+        }else{
+            header("location: ../login/login.php?e=1");
         }
+   }
+
+   public function listarCliente(){
+       $sql ="select * from usuario";
+       $rs = $this->cnx->query($sql);
+       return $rs;
+   }
+
+   public function actualizarCliente($tipo,$id){
+        $sql = "UPDATE usuario  SET tipo = '$tipo' WHERE idusuario ='$id'";
+        $rs = $this->cnx->query($sql);
+        echo "ok";
    }
 /*
 ejemplos de los metodos de arriba;

@@ -1,8 +1,14 @@
-<!-- azul style="background: linear-gradient(to top, #0f2027, #203a43, #2c5364);" 
-  negro background: linear-gradient(to top, #000000, #434343);
-   rosa negro background: linear-gradient(to bottom, #403a3e, #be5869);
-   rojo background: linear-gradient(to bottom, #a73737, #7a2828);
--->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hola</title>
+</head>
+<body>
+    
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
@@ -16,10 +22,10 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="https://res.cloudinary.com/dauz6sio9/image/upload/v1630546560/q9nwqexpsqoegs3shth1.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="<?php echo $_SESSION['url']; ?>" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="perfil.php" class="d-block">Jhon Alexander</a>
+          <a href="perfil.php" class="d-block"><?php echo $_SESSION['nombre'] ." ". $_SESSION['apellido'];?></a>
         </div>
       </div>
 
@@ -52,19 +58,7 @@
                   <p>Categorías</p>
                 </a>
               </li>
-              <!-- <li class="nav-item">
-                <a href="venta.php" class="nav-link">
-                  <span class="badge badge-warning"><?php
-                    if(isset($_SESSION['carrito'])){
-                        echo count($_SESSION['carrito']);
-                    }else{
-                        echo 0;
-                    }
-                  ?></span>
-                  <i class="fas fa-shopping-cart nav-icon"></i>
-                  <p>Venta</p>
-                </a>
-              </li> -->
+            
               <li class="nav-item">
                 <a href="distrito.php" class="nav-link">
                   <i class="fas fa-map-marker-alt nav-icon"></i>
@@ -144,3 +138,5 @@
     </div>
     <!-- /.sidebar -->
   </aside>
+</body>
+</html>

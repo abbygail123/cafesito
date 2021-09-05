@@ -1,15 +1,7 @@
 <?php
-      require_once("../clases/csesion.php");
-      $sesion=new CSesion();
-      $conx=$sesion->conexion();
-      require("../clases/ccategoria.php");
-
+session_start();
 ?>
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -98,8 +90,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="col-sm">
                           <div class="form-group">
                             <label>Categoría</label>
-                            <?=comboCategoria($conx);?>
-                          </div>
+            <select  id='categoria' class='form-control' name='categoria' required>
+                
+           </select>
+                  </div>
                         </div>
                         <div class="col-sm">
                             <div class="form-group">
@@ -125,7 +119,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <h5 class="m-0">Tabla</h5>
                       </div>
                       <div class="card-body" id="idLista">
-                          <?=tablaCategoria($conx);?>
+                        
                       </div> 
                   </div> 
                 </div>
@@ -138,7 +132,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <h5 class="m-0">Subcategorías</h5>
                       </div>
                       <div class="card-body" id="idListaSub">
-                          <?=tablaSub($conx);?>
+                      
                       </div> 
                   </div> 
                 </div>
@@ -230,7 +224,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!--- funciones propias-->
 <script src="../js/categoria.js"></script>
-
+<script>listarCategoria()</script>
 
 </body>
 </html>

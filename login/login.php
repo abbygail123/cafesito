@@ -63,11 +63,20 @@
     
         </div>
       </form>
-
       <!-- /.social-auth-links -->
-
       <p class="text-center text-danger">
-        
+      <?php 
+		if(isset($_GET['e'])){
+			if($_GET['e']==1){
+				echo "Datos incorrectos";
+      }
+		}
+    if(isset($_GET['d'])){
+      if($_GET['d']==1){
+				echo "Complete todos los campos";
+      }
+    }
+		?>
       </p>
     </div>
     <!-- /.login-card-body -->

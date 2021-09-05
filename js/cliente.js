@@ -1,3 +1,34 @@
+function listaUsuario(){
+	//var busca= $("#txtbusca").val();
+	$.ajax({
+        url: "../Controller/Listar-Usuarios.php",
+        type: "post",
+      //data: {"busca":busca},
+        success: function(data){
+			$("#listaUsuario").html(data);
+        }
+    });
+}
+
+function selectTipo(id){
+    var tipo = document.getElementById('tipo');
+    var selected = tipo.options[tipo.selectedIndex].text;
+    var tipo_operacion = "actualizar_Tipo";
+    $.ajax({
+        url: '../Controller/Controller-User.php',
+        type:'post',
+        data: {'tipo': selected, 'idusuario':id,"op":tipo_operacion},
+        success: function(data){
+            console.log(data);
+			if(data=="ok"){
+                listaUsuario();
+			}else{
+				alert("Error al actualizar los datos");
+			}
+        }
+    });
+}
+
 const formulario = document.getElementById('formulario');
 const cuadros = document.querySelectorAll('#formulario input');
 
@@ -90,19 +121,14 @@ cuadros.forEach((input) => {
 
 
 
-function guardarCliente()
-{
+function guardarCliente(){
     var id_= document.getElementById("buGuardar").value;
     if(id_==0)
     {   
         if(valores.usuario && valores.nombre && valores.telefono && valores.dni && valores.clave){
-         
             document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
                 icono.classList.remove('formulario__grupo-correcto');
             });
-          
-        
-        /* var cod=document.getElementById("idCodigo").value; */
         var usuario=document.getElementById("idUsuario").value;
         var nombre=document.getElementById("idNombres").value;
         var apellido=document.getElementById("idApellidos").value;
@@ -130,7 +156,7 @@ function guardarCliente()
             }
         });	 
         }else{
-            toastr.error('Complete correctamente los datos');
+            toastr.error('Complete correctamenssste los datos');
         }     
     }
     else{
@@ -141,7 +167,7 @@ function guardarCliente()
             });
         modificarCliente(id_);
         }else{
-            toastr.error('Complete correctamente los datos');
+            toastr.error('Complete correctameSSSnte los datos');
         } 
     }
 }
@@ -176,7 +202,7 @@ function mostrar(val_)
 
 }
 
-
+/*
 function modificarCliente(val)
 {   
 
@@ -270,4 +296,4 @@ $("#input-id").fileinput({
 
 }).on('fileuploaded', function(e, respuesta) {
     document.getElementById("idRuta").value=respuesta.response.mensaje;
-});
+});*/

@@ -1,37 +1,35 @@
-function guardarCategoria()
-{
-    var val_=document.getElementById("botonca").value;
-    if(val_=="0"){
-        var categ= document.getElementById("iddCategoria").value;
-        var op= "guardarCategoria";
-     
-        $.ajax({
-            type:"POST",
-            url:"../control/conCategoria.php",
-            data:{categ,op},
-            dataType:"json",//JavaScript Object Notation
-            success: function(respuesta){		  
-                if(respuesta.mensaje==true)
-                {    
-                toastr.success('Se agrego correctamente');
-                document.getElementById("idLista").innerHTML=respuesta.tabla;  
-                $("#idTabla").bootstrapTable();
-                clear();
-                }
-                else
-                {
-                alert(respuesta.mensaje);
-                }
-            }
-        });
-
+function guardarCategoria(){
+    var categoria =$('#iddCategoria').val();
+    var insertar_categoria = "insertar";
+    if(!categoria){
+        alert("Complete el campo");
     }else{
-        modificar(val_);
-    }
-     
+    $.ajax({
+        url:'../Controller/Controller-Categoria.php',
+        type:'post',
+        data:{"categoria":categoria,"tipo":insertar_categoria},
+        success: function(data){
+            if(data == "registrado"){
+                listarCategoria();
+                document.getElementById("iddCategoria").value="";
+            }else{
+                console.log("error");
+            }
+        }
+    });
+}
 }
 
-
+function listarCategoria(){
+    $.ajax({
+        url: "../Controller/Listar-ComboBox.php",
+        type: "post",
+      //data: {"busca":busca},
+        success: function(data){
+			$("#categoria").html(data);
+        }
+    });
+}
 
 
 function mensaje(val)
