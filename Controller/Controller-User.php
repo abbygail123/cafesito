@@ -16,10 +16,17 @@ if ($op == "guardarCliente") {
     $model = new User($id,$nombre,$apellido,$dni,$telefono,$usuario,$clave,$foto);
     $respuesta=$userDao->registerUser($model);
     echo $respuesta;
+    $op="";
 }else if($op=="actualizar_Tipo"){
     $tipo = $_POST['tipo'];
     $id = $_POST['idusuario'];
     $respuesta = $userDao->actualizarCliente($tipo,$id);
     echo $respuesta;
+    $op="";
+}else if($op=="eliminar"){
+    $id_usuario = $_POST['idusuario'];
+    $respuesta = $userDao->eliminarUsuario($id_usuario);
+    echo $respuesta;
+    $op="";
 }
 ?>

@@ -2,24 +2,24 @@ function guardarCategoria(){
     var categoria =$('#iddCategoria').val();
     var insertar_categoria = "insertar";
     if(!categoria){
-        alert("Complete el campo");
+        toastr.error('Complete el campo');
     }else{
-    $.ajax({
-        url:'../Controller/Controller-Categoria.php',
-        type:'post',
-        data:{"categoria":categoria,"tipo":insertar_categoria},
-        success: function(data){
-            if(data == "registrado"){
-                listarCategoria();
-                document.getElementById("iddCategoria").value="";
-            }else{
-                console.log("error");
+        $.ajax({
+            url:'../Controller/Controller-Categoria.php',
+            type:'post',
+            data:{"categoria":categoria,"tipo":insertar_categoria},
+            success: function(data){
+                if(data == "registrado"){
+                    listarCategoria();
+                    toastr.success('Se agrego correctamente');
+                    document.getElementById("iddCategoria").value="";
+                }else{
+                    console.log("error");
+                }
             }
-        }
-    });
+        });
+    }   
 }
-}
-
 function listarCategoria(){
     $.ajax({
         url: "../Controller/Listar-ComboBox.php",
@@ -30,241 +30,97 @@ function listarCategoria(){
         }
     });
 }
-
-
-function mensaje(val)
-{
-  $('#Modal').modal('show');
-  document.getElementById("idfooter").innerHTML="<button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>"+
-                                                "<button type='button' class='btn btn-primary' onclick='eliminar("+val+")'>Eliminar</button>";
-}
-function eliminar(id)
-{
-    var op="eliminar";
+function listarCategoria_Sub(){
     $.ajax({
-        type:"POST",
-        url:"../control/conCategoria.php",
-        data:{"cod":id,"op":op},
-        dataType:"json",//JavaScript Object Notation
-        success: function(respuesta){		  
-            if(respuesta.mensaje==true)
-            {
-               toastr.success('Se elimino correctamente');
-               document.getElementById("idLista").innerHTML=respuesta.tabla;  
-               $("#idTabla").bootstrapTable(); 
-               $('#Modal').modal('hide'); 
-
-            }
-            else
-            {
-              alert(respuesta.mensaje);
-            }
-        }
-    });	  
-
-}
-
-function mostrar(val_)
-{
-
-    //
-    let text ="";
-        if($("#botonca").text() === "Guardar"){
-            text="Actualizar";
-        }else{
-            text="Actualizar";
-        }
-        $("#botonca").html(text);
-    //
-    $("table tbody tr").click(function(){
-       /*  document.getElementyById("id_direccion").value=$(this).find("td:eq(0)").value(); */
-        document.getElementById("iddCategoria").value=$(this).find("td:eq(1)").text();
-        document.getElementById("botonca").value=val_;
-
-    });     
-}
-
-
-function modificar(val){
-    var categ=document.getElementById("iddCategoria").value;
-    var op="modificar";
-
-    $.ajax({
-        type:"POST",
-        url:"../control/conCategoria.php",
-        data:{categ,val,op},
-        dataType:"json",//JavaScript Object Notation
-        success: function(respuesta){		  
-            if(respuesta.mensaje==true)
-            {    
-            toastr.success('Se actualizo correctamente');
-            document.getElementById("idLista").innerHTML=respuesta.tabla;  
-            $("#idTabla").bootstrapTable();
-            clear();
-            }
-            else
-            {
-                alert(respuesta.mensaje);
-            }
+        url: "../Controller/Listar-Categoria-Sub.php",
+        type: "post",
+      //data: {"busca":busca},
+        success: function(data){
+			$("#listaCategoria_Sub").html(data);
         }
     });
 }
 
-function clear()
-{
-    /* document.getElementById("idCodigo").value=""; */
-    document.getElementById("iddCategoria").value="";
-    document.getElementById("botonca").value="0";
-    //
-    let text ="";
-        if($("#botonca").text() === "Actualizar"){
-            text="Guardar";
-        }else{
-            text="Guardar";
-        }
-        $("#botonca").html(text);
-    //
-}
-
-////sub
-function clearSub()
-{
-    document.getElementById("idSub").value="";
-    document.getElementById("idCategoria").value=0;
-   
-    document.getElementById("botonSub").value=0;
-    //
-    let text ="";
-        if($("#botonSub").text() === "Actualizar"){
-            text="Guardar";
-        }else{
-            text="Guardar";
-        }
-        $("#botonSub").html(text);
-    //
-}
-function guardarSub()
-{    
-    var val__=document.getElementById("botonSub").value;
-    if(val__=="0")
-    {
-        var cate=document.getElementById("idCategoria").value;
-        var subca=document.getElementById("idSub").value;
-        
-        var ope="guardarSub";
-        
+function guardarSub(){   
+    var idcategoria=document.getElementById('categoria').value;
+    var sub_categoria=document.getElementById('idSub').value;
+    var tipo = "insertar_sub_categoria";
+    if(!idcategoria || !sub_categoria){
+        toastr.error('Complete todos los campos');
+    }else{
         $.ajax({
-            type:"POST",
-            url:"../control/conCategoria.php",
-            data:{cate,subca,ope},
-            dataType:"json",//JavaScript Object Notation
-            success: function(respuesta){		  
-                if(respuesta.mensaje==true)
-                {
-                   
-                   toastr.success('Se agrego correctamente');
-                   document.getElementById("idListaSub").innerHTML=respuesta.tabla;  
-                   $("#idTablaSub").bootstrapTable();
-                   clearSub();
-                }
-                else
-                {
-                  alert(respuesta.mensaje);
-                }
+            url:'../Controller/Controller-Categoria.php',
+            type:'post',
+            data:{"idcategoria":idcategoria,"sub_categoria":sub_categoria,"tipo":tipo},
+            success:function(data){
+                console.log(data);
+                toastr.success('Se agrego correctamente');
+                listarCategoria();
+                listarCategoria_Sub();
+                document.getElementById('idSub').value="";
             }
-        });	      
-    
-    }
-    else
-    {
-        modificarSub(val__);
+        });
     }
 }
 
-function modificarSub(vall)
-{
-    var cate=document.getElementById("idCategoria").value;
-    var subca=document.getElementById("idSub").value;
-   
-    
-    var ope="modificarSub";
-    
+function eliminar(id){
+    var tipo = "eliminar";
     $.ajax({
-        type:"POST",
-        url:"../control/conCategoria.php",
-        data:{cate,subca,vall,ope},
-        dataType:"json",//JavaScript Object Notation
-        success: function(respuesta){		  
-            if(respuesta.mensaje==true)
-            {
-               toastr.success('Se modifico correctamente');
-               document.getElementById("idListaSub").innerHTML=respuesta.tabla;  
-               $("#idTablaSub").bootstrapTable();
-               clearSub();
-            }
-            else
-            {
-              alert(respuesta.mensaje);
+        url:'../Controller/Controller-Categoria.php',
+        type:'post',
+        data:{"id":id,"tipo":tipo},
+        success:function(data){
+            console.log(data);
+            if(data=="eliminado"){
+                listarCategoria_Sub();
+                listarCategoria();
+                toastr.success("Categoria eliminada");
+            }else{
+                toastr.error("Error al  eliminar");
             }
         }
-    });	      
-
-}
-function mostrarSub(val__)
-{
-    
-    /* cancelar=document.getElementById("cancelar");
-    cancelar.style.display="block"; */
-    //
-    let text ="";
-        if($("#botonSub").text() === "Guardar"){
-            text="Actualizar";
-        }else{
-            text="Actualizar";
-        }
-        $("#botonSub").html(text);
-    //
-    $("table tbody tr").click(function(){
-
-        var categoria=$(this).find("td:eq(1)").text();
-        $("#idCategoria").find('option:contains("'+categoria+'")').prop('selected', true);
-        document.getElementById("idSub").value=$(this).find("td:eq(2)").text();    
-      
-        document.getElementById("botonSub").value=val__;
-    
-
     });
 }
-function mensajeSub(val)
-{
-  $('#ModalS').modal('show');
-  document.getElementById("idfooterS").innerHTML="<button type='button' class='btn btn-info' data-dismiss='modal'>Cancelar</button>"+
-                                                "<button type='button' class='btn btn-danger' onclick='eliminarSub("+val+")'>Eliminar</button>";
+
+
+function verdatos(id){
+    $.ajax({
+        url: "../Controller/Obtener-Categoria.php",
+        type: "post",
+        data: { "idcategoria": id },
+        success: function(data){
+			//console.log(data);
+        	var datos = JSON.parse(data);
+			$("#idcategoria").val(datos.idcategoria);
+			$("#nombre_categoria").val(datos.categoria);
+			$("#nombre_subcategoria").val(datos.nombre_sub); 
+			$("#modal-categoria").modal('show');
+        }
+    });
 }
 
-function eliminarSub(id)
-{
-    var ope="eliminarSub";
+function editarCategoria(){
+    var id = $("#idcategoria").val();
+	var nombre_categoria = $("#nombre_categoria").val();
+	var sub_categoria = $("#nombre_subcategoria").val();
+    var tipo_operacion = "editar";
+    console.log(id);
+    console.log(nombre_categoria);
+    console.log(sub_categoria);
     $.ajax({
-        type:"POST",
-        url:"../control/conCategoria.php",
-        data:{"cod":id,"ope":ope},
-        dataType:"json",//JavaScript Object Notation
-        success: function(respuesta){		  
-            if(respuesta.mensaje==true)
-            {
-               toastr.success('Se elimino correctamente');
-               document.getElementById("idListaSub").innerHTML=respuesta.tabla;  
-               $("#idTablaSub").bootstrapTable(); 
-               $('#ModalS').modal('hide'); 
-
-            }
-            else
-            {
-              alert(respuesta.mensaje);
+        url:'../Controller/Controller-Categoria.php',
+        type:'post',
+        data: {"idcategoria":id,"nombre_categoria":nombre_categoria,"sub_categoria":sub_categoria,"tipo":tipo_operacion},
+        success:function(data){
+            console.log(data);
+            if(data =="actualizado"){
+                listarCategoria();
+                listarCategoria_Sub();
+                $("#modal-categoria").modal('hide');
+                toastr.success("Categoria Actualizada");
+            }else{
+                toastr.erro("Error al actualizar");
             }
         }
-    });	  
-
+    });
 }
-

@@ -9,7 +9,6 @@ session_start();
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
   <title>Tienda</title>
-
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
@@ -18,13 +17,17 @@ session_start();
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <!-- Bootstrap-Table---------------->
   <link rel="stylesheet" href="../plugins/bootstrap-table/bootstrap-table.min.css">
-
+  <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> 
   <!-- iconos---->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-
   <!-- toastr---->
   <link rel="stylesheet" href="../plugins/toastr/toastr.min.css">
-
+  <link rel="stylesheet" type="text/css" href="../css/modalCategoria.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -119,7 +122,18 @@ session_start();
                         <h5 class="m-0">Tabla</h5>
                       </div>
                       <div class="card-body" id="idLista">
-                        
+                      <table class="table table-striped table-hover">
+			                    <thead>
+				                      <tr>
+					                      <th>Cod</th>
+					                      <th>Nombre Categoría </th>
+					                      <th>Subcategorías</th>
+					                      <th colspan="2">Acciones</th>
+			                        </tr>
+			                    </thead>
+			                    <tbody id="listaCategoria_Sub">
+			                    </tbody>
+		                  </table>
                       </div> 
                   </div> 
                 </div>
@@ -159,56 +173,37 @@ session_start();
   <!-- /.Main Footer -->
 
 </div>
-<!-- ./wrapper -->
 
-<!-- Modal -->
-<div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Advertencia</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-      </div>
-      <div class="modal-body">
-        ¿Estás seguro de eliminar este registro ?
-      </div>
-      <div class="modal-footer" id="idfooter">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Eliminar</button>
-      </div>
-    </div>
-  </div>
+<!-- modal para la categoria -->
+<div id="modal-categoria" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+ <div class="modal-dialog">
+  <form action="../controlador/insertarVentaProducto.php"  method="post">
+   <div class="modal-content">
+        <div class="modal-header">
+				<div class="modal-title">
+					<h3>Categoria</h3>
+				</div>
+			</div>
+			<div class="modal-body">
+			<input type="hidden" id="idcategoria" value="" name="idcategoria">
+				<div class="form-group">
+					<label for="nombre_categoria" >Nombre Categoria</label>
+					<input  type="text" class="form-control" name="nombre_categoria" id="nombre_categoria" value="" placeholder="">
+				</div>
+				<div class="form-group">
+					<label for="nombre_subcategoria">Sub Categoria</label>
+					<input type="text" class="form-control" name="nombre_subcategoria" id="nombre_subcategoria" value="" placeholder="">
+				</div>
+        </div>
+          <div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+					<button class="btn btn-primary" id="delete" type="button" onclick="editarCategoria()">Editar</button>
+      	</div>	
+   </div>
+  </form>
+ </div>	
 </div>
-<!-- modal leiminar sub -->
-<div class="modal fade" id="ModalS" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Advertencia</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-      </div>
-      <div class="modal-body">
-        ¿Estás seguro de eliminar este registro ?
-      </div>
-      <div class="modal-footer" id="idfooterS">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Eliminar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
- 
-
-
-
-
-<!-- REQUIRED SCRIPTS -->
-
+<!--termina el modal para la categoria-->
 <!-- jQuery -->
 <script src="../plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
@@ -225,6 +220,6 @@ session_start();
 <!--- funciones propias-->
 <script src="../js/categoria.js"></script>
 <script>listarCategoria()</script>
-
+<script>listarCategoria_Sub()</script>
 </body>
 </html>

@@ -1,1 +1,22 @@
-test commit
+DELIMITER $$
+CREATE TRIGGER admin AFTER UPDATE ON usuario
+FOR EACH ROW
+BEGIN
+    IF new.tipo="Admin" THEN BEGIN
+        insert into  vendedor(idusuario,tipo_usuario) values(new.idusuario,new.tipo);
+    END; END IF;
+END$$
+DELIMITER ;
+-------------------------------------------------------------------------------------
+DELIMITER $$
+CREATE TRIGGER destroy_admin AFTER UPDATE ON usuario
+FOR EACH ROW
+BEGIN
+    IF new.tipo="Cliente" THEN BEGIN
+        DELETE FROM  vendedor WHERE idusuario=new.idusuario;
+    END; END IF;
+END$$
+DELIMITER ;
+
+
+https://www.tutorialesprogramacionya.com/mysqlya/temarios/descripcion.php?inicio=84&cod=93&punto=90

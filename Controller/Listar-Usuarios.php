@@ -11,25 +11,25 @@ while($reg=$rs->fetchObject()){
 					<td>$reg->dni</td> 
 					<td>$reg->telefono</td>
 					<td colspan='2'>
-                ";
-                if($reg->tipo=="Admin"){
+                     <a href='#' style='color:red;' onclick='eliminarUsuario($reg->idusuario)'><i class='material-icons'data-toogle='tooltip' title='Delete'>delete_forever</i></a>
+                    <select name='tipo' id='tipo' class='form-select' onchange='selectTipo($reg->idusuario);'>
+                    <option disabled selected>$reg->tipo</option>
+                  ";
+                  if($reg->tipo=="Admin"){
                     $resultado.="
-                <select name='tipo' id='tipo' class='form-select' onchange='selectTipo($reg->idusuario);'>
-                    <option value='$reg->idusuario'>Admin</option>
                     <option value='$reg->idusuario'>Cliente</option>
-                </select>		
-					</td>
-				</tr>
+                  </select>	
+                </td>
+            </tr>
                     ";
-                }else if($reg->tipo=="Cliente"){
+                  }
+                  if($reg->tipo=="Cliente"){
                     $resultado.="
-                <select name='tipo' id='tipo' class='form-select' onchange='selectTipo($reg->idusuario)'>
-                    <option value='$reg->idusuario'>Cliente</option>
                     <option value='$reg->idusuario'>Admin</option>
-                </select>			
-					</td>
-				</tr>
-                ";
-                }
+                  </select>	
+                </td>
+            </tr>
+                    ";
+                  }        
 }
 echo $resultado;

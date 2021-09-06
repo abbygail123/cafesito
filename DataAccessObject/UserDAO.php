@@ -87,9 +87,28 @@ class UserDAO
    }
 
    public function actualizarCliente($tipo,$id){
-        $sql = "UPDATE usuario  SET tipo = '$tipo' WHERE idusuario ='$id'";
-        $rs = $this->cnx->query($sql);
-        echo "ok";
+        $sql = "UPDATE usuario  SET tipo = ? WHERE idusuario =?";
+        $rs = $this->cnx->prepare($sql);
+        $rs->bindParam(1,$tipo);
+        $rs->bindParam(2,$id);
+        $rs->execute();
+        if($rs){
+            echo "actualizado";
+        }else{
+            echo "error";
+        }
+   }
+
+   public function eliminarUsuario($idUsuario){
+        $sql="delete from usuario where idusuario=?";
+        $rs = $this->cnx->prepare($sql);
+        $rs->bindParam(1,$idUsuario);
+        $rs->execute();
+        if($rs){
+            echo "eliminado";
+        }else{
+            echo "error";
+        }
    }
 /*
 ejemplos de los metodos de arriba;

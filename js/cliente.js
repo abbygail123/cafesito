@@ -9,10 +9,27 @@ function listaUsuario(){
         }
     });
 }
-
+function eliminarUsuario(id){
+    var tipo_operacion = "eliminar";
+  $.ajax({
+      url: '../Controller/Controller-User.php',
+      type:'post',
+      data: {"op":tipo_operacion,"idusuario":id},
+      success:function(data){
+          console.log(data);
+          if(data=="eliminado"){
+                listaUsuario();
+                tipo_operacion=null;
+          }else{
+              console.log("error");
+          }
+      }
+  });
+}
 function selectTipo(id){
     var tipo = document.getElementById('tipo');
     var selected = tipo.options[tipo.selectedIndex].text;
+    console.log(selected);
     var tipo_operacion = "actualizar_Tipo";
     $.ajax({
         url: '../Controller/Controller-User.php',
@@ -20,8 +37,10 @@ function selectTipo(id){
         data: {'tipo': selected, 'idusuario':id,"op":tipo_operacion},
         success: function(data){
             console.log(data);
-			if(data=="ok"){
+			if(data=="actualizado"){
                 listaUsuario();
+                tipo_operacion="";
+                document.getElementById("tipo").value="";
 			}else{
 				alert("Error al actualizar los datos");
 			}

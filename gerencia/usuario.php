@@ -37,7 +37,8 @@ $reg = $rs->fetchObject();
    <link media="all" rel="stylesheet" type="text/css" href="../plugins/file-input/css/fileinput.css"  />
 
   <link rel="stylesheet" href="usuario.css">
-
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body class="hold-transition sidebar-mini">
   
