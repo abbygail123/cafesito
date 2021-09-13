@@ -7,7 +7,6 @@ session_start();
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-
   <title>Tienda</title>
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
@@ -20,9 +19,7 @@ session_start();
   <meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> 
   <!-- iconos---->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
   <!-- toastr---->
@@ -31,13 +28,10 @@ session_start();
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-
-  <!-- Navbar -->
-       <?php include("../tema/navbar.php");?>
   <!-- /.navbar -->
-
+  <?php include("../tema/navbar.php");?>
   <!-- Main Sidebar Container -->
-       <?php include("../tema/sidebar.php");?>
+  <?php include("../tema/sidebar.php");?>
   <!-- /.Main Sidebar Container -->
 
   <!-- Content Wrapper. Contains page content -->
@@ -174,7 +168,7 @@ session_start();
 
 </div>
 
-<!-- modal para la categoria -->
+<!-- modal para la categoria boton editar categoria -->
 <div id="modal-categoria" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
  <div class="modal-dialog">
   <form action="../controlador/insertarVentaProducto.php"  method="post">
@@ -219,7 +213,7 @@ session_start();
 
 <!--- funciones propias-->
 <script src="../js/categoria.js"></script>
-<script>listarCategoria()</script>
+<script>listarCategoriaComboBox()</script>
 <script>listarCategoria_Sub()</script>
 </body>
 </html>

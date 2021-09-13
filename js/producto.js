@@ -1,4 +1,185 @@
+let preview = document.getElementById("preview");
+var read_img = document.getElementById("file").onchange = function(e) {
+    // Creamos el objeto de la clase FileReader
+    let reader = new FileReader();
+    // Leemos el archivo subido y se lo pasamos a nuestro fileReader
+    reader.readAsDataURL(e.target.files[0]);
+    // Le decimos que cuando este listo ejecute el código interno
+    reader.onload = function(){
+        preview = document.getElementById('preview'),
+        image = document.createElement('img');
+        image.src = reader.result;
+        image.style.height="100px";
+        image.style.width="100px";
+        image.className="remove_imagen";
+        preview.innerHTML = '';
+        preview.append(image);
+    };
+}
 
+function eliminarProducto(id){
+    var tipo_operacion ="eliminar";
+    console.log(id);
+    $.ajax({
+        url: "../Controller/Controller-Producto.php",
+        type: "post",
+        data : {"id_producto":id,"tipo":tipo_operacion},
+        success:function(get){
+            if(get=="eliminado"){
+                listar_Producto();
+                toastr.success("Se eliminó el producto");
+            }else{
+                console.log("error");
+            }
+     
+        }
+    });
+}
+
+function verDatos(id){
+    var tipo_operacion ='obtener_Datos';
+    $.ajax({
+        url: "../Controller/Controller-Producto.php",
+        type:'post',
+        data:{"id_producto":id,"tipo":tipo_operacion},
+        success:function(data){
+            var data = JSON.parse(data);
+            $('#modal_id').val(data.idproducto);
+            $('#modal_nombre').val(data.nombre);
+            $('#modal_descripcion').val(data.descripcion);
+            $('#modal_categoria').val(data.categoria);
+            $('#modal_sub').val(data.nombre_sub);
+            $('#modal_compra').val(data.precio_compra);
+            $('#modal_venta').val(data.precio_venta);
+            $('#modal_stock').val(data.stock);
+            $('#modal_imagen').attr('src',data.url_imagen);
+            $("#modal_producto_ver").modal('show');
+        }
+    });
+    
+}
+
+/*
+var id =  $('#modal_id').val();
+var nombre =  $('#modal_nombre').val();
+var descripcion =   $('#modal_descripcion').val();
+var categoria =   $('#modal_categoria').val();
+var subcategoria =  $('#modal_sub').val();
+var precio_compra = $('#modal_compra').val();
+var precio_venta = $('#modal_venta').val();
+var stock  = $('#modal_stock').val();
+*/
+function actualizar_Producto(){
+    var imagen = document.getElementById('modal_src').files[0];
+    var tipo_operacion ="actualizar_producto";
+    form = new FormData();
+    form.append("id",$('#modal_id').val());
+    form.append("nombre",$('#modal_nombre').val());
+    form.append("descripcion",$('#modal_descripcion').val());
+    form.append("categoria",$('#modal_categoria').val());
+    form.append("sub_categoria",$('#modal_sub').val());
+    form.append("precio_compra",$('#modal_compra').val());
+    form.append("precio_venta",$('#modal_venta').val());
+    form.append("stock",$('#modal_stock').val());
+    form.append("imagen",imagen);
+    form.append("tipo",tipo_operacion);
+    if(!imagen){
+        var existe = "no_imagen";
+        form.append("existe",existe);
+    }else{  
+        existe = "si_imagen";
+        form.append("existe",existe);
+    }
+    console.log(existe);
+     $.ajax({
+        url: "../Controller/Controller-Producto.php",
+        type: "post",
+		data: form,
+        contentType: false,
+        cache: false,
+        processData:false,
+        success: function(data){
+            console.log(data);
+			if(data=="actualizado"){
+                $("#modal_src").val("");
+				$("#modal_producto_ver").modal('hide');
+                listar_Producto();     
+            }else {
+				alert("error al actualizar");
+			}
+        }
+    });     
+}
+
+function listar_ComboBox_Producto(){
+    var ListarComboBox = "listarComboBox";
+    $.ajax({
+        url: "../Controller/Controller-Producto.php",
+        type: "post",
+        data: {"tipo":ListarComboBox},
+        success: function(data){
+			$("#categoria_producto").html(data);
+        }
+    });
+}
+
+function guardarProducto(){
+    var frmData = new FormData();
+    var imagen = document.getElementById('file').files[0];
+    var tipo_operacion = "insertar_producto";
+    frmData.append("tipo",tipo_operacion);
+    frmData.append("categoria",$('#categoria_producto').val());
+    frmData.append("nombre_producto",$('#nombre_producto').val());
+    frmData.append("descripcion",$('#descripcion').val());
+    frmData.append("imagen",imagen);
+    frmData.append("precio_compra",$('#precio_compra').val());
+    frmData.append("precio_venta",$('#precio_venta').val());
+    frmData.append("stock",$('#stock').val());
+    $.ajax({
+        url: "../Controller/Controller-Producto.php",
+        type: "post",
+        data: frmData,
+        contentType: false,
+        cache: false,
+        processData:false,
+        success:function(e){
+            if(e=="insertado"){
+                toastr.success('Se agrego correctamente');
+                limpiarTextField();
+                listar_Producto();
+            }else{
+                console.log("error");
+            }
+        }
+    });
+}
+
+function limpiarTextField(){
+    document.getElementById("categoria_producto").value="";
+    document.getElementById("stock").value="";
+    document.getElementById("precio_compra").value="";
+    document.getElementById("precio_venta").value="";
+    document.getElementById("nombre_producto").value="";
+    document.getElementById("descripcion").value="";
+    $("#file").val("");
+    preview.remove();
+    //$('#remove_imagen').attr('src','');
+    //document.getElementById("remove_imagen").remove(); 
+}
+
+
+function listar_Producto(){
+    var tipo_operacion="listar_producto";
+    $.ajax({
+        url:"../Controller/Controller-Producto.php",
+        type:'post',
+        data:{"tipo":tipo_operacion},
+        success:function(data){
+            $("#listar_Producto").html(data);
+        }
+    });
+}
+/*
 var categoriaa = document.getElementById("idCategoria");
 var subcategoriaa = document.getElementById("idSubC");
 /* function cargarCategoria(){
@@ -16,7 +197,7 @@ var subcategoriaa = document.getElementById("idSubC");
     });
     console.log(categoriaa);
 }
-cargarCategoria(); */
+cargarCategoria(); 
 
 function cargarSubC(enviar){
     $.ajax({
@@ -44,8 +225,8 @@ categoriaa.addEventListener('change',() => {
     cargarSubC(enviar)
 })
 //
-function guardarProducto()
-{
+function guardarProducto(){
+    console.log("aea");
     var val_=document.getElementById("buGuardar").value;
     if(val_=="0")
     {
@@ -60,7 +241,7 @@ function guardarProducto()
         var stock=document.getElementById("idStock").value;
         var tipo=document.getElementById("idtipo").value;
         /* var oferta=document.getElementsByName("nOferta").value; */
-        /* subir_imagenes(); */
+        /* subir_imagenes(); 
         var op="guardarProducto";
         
         $.ajax({
@@ -158,7 +339,7 @@ function mostrar(val_)
         
         document.getElementById("idMarca").value=$(this).find("td:eq(6)").text();
         document.getElementById("idTalla").value=$(this).find("td:eq(7)").text();
-       /*  document.getElementById("idImag").value=$(this).find("td:eq(7)").text(); */
+      
         document.getElementById("idPrecio").value=$(this).find("td:eq(9)").text();
         document.getElementById("idStock").value=$(this).find("td:eq(10)").text();
         var tipo=$(this).find("td:eq(11)").text();
@@ -173,7 +354,7 @@ function mostrar(val_)
         fe=fe.reverse();
         fe=fe.join("-"); */
         //console.log(fe);
-        /* document.getElementById("idVencimiento").value=fe; */
+        /* document.getElementById("idVencimiento").value=fe; 
         //
         
     
@@ -370,7 +551,7 @@ $("#idmodaloferta-lg").on("hidden.bs.modal", function () {
 //         reader.readAsDataURL(f);
 //       }
 //     }
-//       document.getElementById('idImag').addEventListener('change', handleFileSelect, false);
+//       document.getElementById('idImag').addEventListener('change', handleFileSelect, false);*/
 
 
 

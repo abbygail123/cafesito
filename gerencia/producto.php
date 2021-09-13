@@ -1,34 +1,20 @@
 <?php
-  require_once("../clases/csesion.php");
-  $sesion=new CSesion();
-  $sesion->validarSesion();
-  $conx=$sesion->conexion();
-   require("../clases/cproducto.php");
-   require("../clases/coferta.php");
-   require("../clases/ccategoria.php");
-
-    ini_set('date.timezone','America/Lima');
-    $date = date('d/m/Y h:i:s a');
+session_start();
 ?>
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>Tienda</title>
+  <title>Tienda-Producto</title>
   <!-- <link rel="stylesheet" href="../plugins/bootstrap5/css/bootstrap.css"> -->
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <!-- Bootstrap-Table---------------->
   <link rel="stylesheet" href="../plugins/bootstrap-table/bootstrap-table.min.css">
 
@@ -43,23 +29,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!--tempusdominus---->
   <link rel="stylesheet" href="../plugins/datetime/datetime/build/css/tempusdominus-bootstrap-4.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-  <style media="screen">
-        img{
-            max-width: 250px;
-            height: auto;
-            border-radius: 10px;
-        }
-  </style>
-  
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+ <!-- iconos---->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 </head>
+
+<style>
+
+img{
+    height: 80px;
+    width: 80px;
+    object-fit: cover;
+    border-radius: 10px;
+   }
+</style>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
 
   <!-- Navbar -->
        <?php include("../tema/navbar.php");?>
   <!-- /.navbar -->
-
+  
   <!-- Main Sidebar Container -->
        <?php include("../tema/sidebar.php");?>
   <!-- /.Main Sidebar Container -->
@@ -85,103 +77,80 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- /.content-header -->
 
     <!-- Main content -->
+
     <div class="content">
+    <form  enctype="multipart/form-data">
       <div class="container-fluid">
         <div class="row">
           <!-- /.col-md-6 -->
           <div class="col-lg">
-
             <div class="card card-danger card-outline">
               <div class="card-header">
-                <h5 class="m-0">Registro</h5>
+                <h5 class="m-0">Registro de Producto</h5>
               </div>
               <div class="card-body">
                  <div class="row">
                     <div class="col-sm-4">
                       <!-- text input -->
                       <div class="form-group">
-                        <label>Producto</label>
-                        <input autocomplete="off" type="text" class="form-control" id="idProducto">
+                        <label>Nombre Producto</label>
+                        <input autocomplete="off" type="text" class="form-control" id="nombre_producto">
                       </div>
                     </div>
                     <div class="col-sm">
                       <div class="form-group">
                         <label>Descripción</label>
-                        <textarea  placeholder="Ingresar..." class="form-control" id="idDescripcion"></textarea>
+                        <textarea  placeholder="Ingresar..." class="form-control" id="descripcion"></textarea>
                       </div>
                     </div>
                   </div>   
-
-                 <!--  <div class="row">  
-                    <div class="form-group col-sm">
-                        <label>Imagen</label>
-                        <input type="file" class="form-control" id="idImag" name="nImag" accept="image/*" multiple>
-                        <output id="list" style="margin-top:8px"></output>
-                    </div>
-                 
-                  </div> -->          
+                  <!--imagen-->
+                <form action="" method="post">
+                  <div class="row">  
+                  <div class="form-group col-sm-8">
+                    <label>Imagen</label>
+                    <input id="file" class="form-control" type="file" />
+                  </div>
+                  <div class="form-group">
+                  <div class="form-floating">
+                  <div id="preview"></div>
+                  </div> 
+                  </div>
+                </form>
+                  </div>   
                   <div class="row">
-                  
                     <div class="col-sm-4">
                       <div class="form-group">
                         <label>Categoria</label> <br>
-                        
-                        <?=comboCategoria($conx);?>
-                      </div>
-                    </div>
-                  
-                    <div class="col-sm-4" style="display:none;" id="sub">
-                      <div class="form-group">
-                        <label>SCategoria</label> <br>
-                        <select class="form-control" name="" id="idSubC"></select>
+                        <select  id='categoria_producto' class='form-control' name='categoria_producto' required>
+                        </select>
                       </div>
                     </div>
                     <div class="col-sm-2">
-                      <!-- text input -->
                       <div class="form-group">
-                 <!--      <div class="form-floating"> -->
-                        <label for="idMarca">Marca</label>
-                        <input type="text" class="form-control" id="idMarca" name="nMarca" autocomplete="off">
-                  <!--    </div> -->
+                       <div class="form-floating">
+                        <label for="precio_compra">Precio Compra</label>
+                        <input type="number"  class="form-control" id="precio_compra" name="precio_compra" autocomplete="off">
+                    </div> 
                       </div>
                     </div>
                     <div class="col-sm-2">
-                      <!--   <div class="form-floating"> -->
-                      <label for="idTalla">Talla</label>
-                      <input style="text-transform:uppercase;" type="text" class="form-control" id="idTalla" name="nTalla" autocomplete="off" disabled>
-                      <!--   </div> -->
+                       <div class="form-floating">
+                      <label for="precio_venta">Precio Venta</label>
+                      <input style="text-transform:uppercase;" type="number" class="form-control" id="precio_venta" name="precio_venta">
+                       </div> 
+                    </div>
+                    <div class="col-sm-3">
+                      <div class="form-group">
+                          <label for="stock">Stock</label>
+                          <input type="number" class="form-control" id="stock" name="stock" autocomplete="off">
+                      </div>
                     </div>
                   </div>  
-
                   <div class="row">
-                    <div class="col-sm-4">
-                      <!-- text input -->
-                      <div class="form-group">
-                          <label for="idPrecio">Precio</label>
-                          <input type="number" class="form-control" id="idPrecio" name="nPrecio" autocomplete="off">
-                      </div>
-                    </div>
-                    <div class="col-sm-4 form-floating">
-                      <label for="idStock">Stock</label>
-                        <input type="number" autocomplete="off" class="form-control" id="idStock" name="nStock">
-                        
-                    </div>
-                    <div class="col-sm-4">
-                      <div class="form-group">
-                        <label for="idtipo">Tipo</label>                          
-                           <input name="ntipo" autocomplete="off" class="form-control" list="hola" id="idtipo" placeholder="Type...">
-                              <datalist id="hola" name="ntipo" >
-                                <option name="ntipo" value="Hombre">
-                                <option name="ntipo" value="Mujer">
-                                <option name="ntipo" value="Niño">
-                                <option name="ntipo"value="Niña">
-                                <option name="ntipo" value="Todos">
-                              </datalist>
-                      </div>
-                    </div>
+                    
                   </div> 
-                  
-                  <!-- <div class="row">
+                  <div class="row">
                     <div class="form-group col-sm">
                       <label for="idMarca">¿Quieres añadir ofertas?</label>
                       <div class="icheck-material-purple">
@@ -194,14 +163,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       </div>
                     
                     </div>
-                  </div> -->
+                  </div>
               </div>
               
               <div class="card-footer">
                   <a href="producto.php" type="button" class="btn btn-danger float-left" id="cancelar" style="display:none;">Cancelar</a>
-                  <button type="button" class="btn btn-primary float-right" id="buGuardar" onclick="guardarProducto();" value="0">Guardar</button>
+                  <button type="button" class="btn btn-primary float-right" id="buGuardar" onclick="guardarProducto();" value="0">Guardar Aqui</button>
               </div>
             </div>
+          </form>
           </div>
           <!-- /.col-md-6 -->
         </div>
@@ -209,22 +179,38 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-lg-12">
              <div  class="callout callout-danger card collapsed-card">
                  <div  class="card-header">
-                    
-                   <h5 class="card-title m-0" style="color:crimson"><i class="fas fa-table"></i> Tabla</h5>
-                   <div class="card-tools">
+                    <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-plus"></i>
+                        <i style="color:red" class="fas fa-plus"></i>
                       </button>
-                      <!-- <button type="button" class="btn btn-tool" data-card-widget="remove">
-                        <i class="fas fa-times"></i>
-                      </button> -->
+                      <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i style="color:red" class="fas fa-times"></i>
+                      </button> 
                     </div>
                  </div>
                  <div class="card-body" id="idLista">
-                     <button class="btn btn-outline-danger btn-sm" id="EliminarV">Eliminar</button>
                       <button class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#idmodaloferta-lg" id="Oferta" type="button" onclick="agregarPr();">Añadir oferta</button>
-                     <?=tablaProductos($conx);?>
+                   
                  </div>
+                   <h5 class="card-title m-0" style="color:crimson"><i class="fas fa-table"></i> Tabla</h5>
+                   <table class="table table-striped table-hover">
+			                    <thead>
+				                      <tr>
+					                      <th>#Cod</th>
+					                      <th>Nombre</th>
+                                <th>Descripcion</th>
+					                      <th>Cantidad</th>
+                                <th>Precio-Compra</th>
+                                <th>Precio-Venta</th>
+                                <th>Imagen</th>
+                                <th>Categoria</th>
+                                <th>Sub-Categoría</th>
+					                      <th colspan="2">Acciones</th>
+			                        </tr>
+			                    </thead>
+			                    <tbody id="listar_Producto">
+			                    </tbody>
+		                  </table>
              </div>  
           </div>
         </div>
@@ -252,31 +238,97 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 </div>
 <!-- ./wrapper -->
-
-    <!-- Modal -->
-    <div class="modal fade" id="idmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+   <!-- MODAL PRODUCTO-VER -->
+   <div class="modal fade" id="modal_producto_ver" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Advertencia</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            ¿Estás seguro de eliminar el registro?
-        </div>
-        <div class="modal-footer" id="idFooter">
-            <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-danger">Eliminar</button>
-        </div>
+          <div class="modal-header">
+              <h5 class="modal-title" style="color:crimson;" id="exampleModalLabel"><i class="fas fa-gifts"></i> Producto</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+        <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- /.col-md-6 -->
+          <div class="col-lg">
+            <div class="card card-danger card-outline">
+              <div class="card-header">
+                <h5 class="m-0">Actualizar Producto</h5>
+              </div>
+              <div class="card-body">
+                 <div class="row">
+                    <div class="col-sm-4">
+                      <!-- text input -->
+                      <input type="hidden" id="modal_id" value="" name="modal_id">
+                      <div class="form-group">
+                        <label>Nombre Producto</label>
+                        <input autocomplete="off" type="text" class="form-control" id="modal_nombre">
+                      </div>
+                    </div>
+                    <div class="col-sm">
+                      <div class="form-group">
+                        <label>Descripción</label>
+                        <textarea class="form-control" id="modal_descripcion"></textarea>
+                      </div>
+                    </div>
+                  </div>   
+                  <!--imagen-->
+                  <div class="row">  
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label>Categoria</label> <br>
+                        <input type="text"  class="form-control" id="modal_categoria" name="modal_categoria" autocomplete="off">
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label>Sub Categoria</label> <br>
+                        <input type="text"  class="form-control" id="modal_sub" name="modal_sub" autocomplete="off">
+                      </div>
+                    </div>
+                    <div class="col-sm-2">
+                      <div class="form-group">
+                       <div class="form-floating">
+                        <label for="modal_compra">Precio </label>
+                        <input type="number"  class="form-control" id="modal_compra" name="modal_compra" autocomplete="off">
+                    </div> 
+                      </div>
+                    </div>
+                    <div class="col-sm-2">
+                      <div class="form-group">
+                       <div class="form-floating">
+                        <label for="modal_venta">Precio Venta</label>
+                        <input type="number"  class="form-control" id="modal_venta" name="modal_venta" autocomplete="off">
+                    </div> 
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                      <div class="form-group">
+                          <label for="modal_stock">Stock</label>
+                          <input type="number" class="form-control" id="modal_stock" name="modal_stock" autocomplete="off">
+                      </div>
+                    </div>
+                  </div>  
+                  
+                  <div class="form-group">
+					            <label for="modal_imagen" >Imagen Del Producto</label> <br>
+					            <img  id="modal_imagen" name="modal_imagen" src=""> 
+			          	</div>
+        		      <input type= "file" id="modal_src" name="src"  value="Escoger Imagen" class="">  
+                  </div>
+                  </div>
+                  <div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+					<button class="btn btn-primary" type="button" onclick="actualizar_Producto()">Guardar Cambios</button>
+      	</div>	
         </div>
     </div>
-    </div>
-
-      
+  </div>
+   <!-- MODAL PRODUCTO-VER -->
   <!-- Modal OFERTAS -->
- <div class="modal fade" id="idmodaloferta-lg" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal fade" id="" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
@@ -319,7 +371,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="form-group">
                     <label for="idTime">Duración</label>
                       <div class="input-group date" id="idTime" data-target-input="nearest">
-                        <input type="text" name="fecha" id="fecha" class="form-control datetimepicker-input" data-target="#idTime" placeholder="<?=$date?>"/>
+                        <input type="text" name="fecha" id="fecha" class="form-control datetimepicker-input" data-target="#idTime" placeholder=""/>
                         <div class="input-group-append" data-target="#idTime" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="far fa-calendar"></i></div>
                         </div>
@@ -332,11 +384,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div>
         </div>
     </div>
+  </div>  </div>
+        </div>
+    </div>
   </div>
-
   <a id="back-to-top" href="#" class="btn btn-danger btn-xs back-to-top" role="button" aria-label="Scroll to top">
       <i class="fas fa-chevron-up"></i>
-    </a>
+  </a>
 
 
 <!-- REQUIRED SCRIPTS -->
@@ -362,7 +416,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!--- funciones propias-->
 <script src="../js/producto.js"></script>
 <script src="../js/oferta.js"></script>
-
-
+<script>listar_ComboBox_Producto()</script>
+<script>listar_Producto()</script>
 </body>
 </html>

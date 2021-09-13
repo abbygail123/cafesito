@@ -4,6 +4,7 @@ class CategoriaDAO{
     public function __construct(){
         $this->cnx = Conexion::conexion(); // ->  y  :: da a conocer el llamado de la clase y el método
     }
+
     public function insertarCategoria($categoria){
         $sql = "insert into categoria(categoria) values(?)";
         $rs  = $this->cnx->prepare($sql);
@@ -15,18 +16,20 @@ class CategoriaDAO{
             echo "error";
         }
     }
-    public function listarCategoria(){
+
+    public function listarCategoriaComboBox(){
         $sql ="SELECT * from categoria as c where not EXISTS (select * from sub_categoria as sub where  c.idcategoria=sub.idcategoria)";
         $rs = $this->cnx->query($sql);
         return $rs;
     }
-    public function listarCategoria_subCategoria(){
+
+    public function listar_Categoria_Sub(){
         $sql="select c.idcategoria,c.categoria,s.nombre_sub
         from categoria c INNER JOIN sub_categoria s on s.idcategoria=c.idcategoria";
         $rs =$this->cnx->query($sql);
         return $rs;
     }
-    
+
     public function insertarSubCategoria($id_categoria,$sub_categoria){
         $sql="insert into sub_categoria(idcategoria,nombre_sub) values(?,?)";
         $rs = $this->cnx->prepare($sql);
@@ -39,6 +42,7 @@ class CategoriaDAO{
             echo "error";
         }
     }
+
     public function eliminarCategoria($id_categoria){
         $sql="delete from categoria where idcategoria=?";
         $rs = $this->cnx->prepare($sql);
@@ -65,7 +69,7 @@ class CategoriaDAO{
             return "error";
         }
     }
-
+    
     public function actualizarCategoria_Sub($id,$categoria,$sub_categoria){
         $sql= "UPDATE categoria cat INNER JOIN sub_categoria sub on cat.idcategoria=sub.idcategoria
         SET cat.categoria=? , sub.nombre_sub=?

@@ -122,6 +122,8 @@ function guardarCliente(){
                 if(obj=="registrado"){
                     clear();
                     window.location.assign("../login/login.php");
+                }else if ("existe"){
+                    toastr.error("el usuario ya se encuenta en uso");
                 }else{
                     console.log("error");
                 }

@@ -10,7 +10,7 @@ function guardarCategoria(){
             data:{"categoria":categoria,"tipo":insertar_categoria},
             success: function(data){
                 if(data == "registrado"){
-                    listarCategoria();
+                    listarCategoriaComboBox();
                     toastr.success('Se agrego correctamente');
                     document.getElementById("iddCategoria").value="";
                 }else{
@@ -20,21 +20,23 @@ function guardarCategoria(){
         });
     }   
 }
-function listarCategoria(){
+function listarCategoriaComboBox(){
+    var listarCategoriaComboBox = "listarCategoriaComboBox";
     $.ajax({
-        url: "../Controller/Listar-ComboBox.php",
+        url: "../Controller/Controller-Categoria.php",
         type: "post",
-      //data: {"busca":busca},
+        data: {"tipo":listarCategoriaComboBox},
         success: function(data){
 			$("#categoria").html(data);
         }
     });
 }
 function listarCategoria_Sub(){
+    var listar_Categoria_Sub = "listar_Categoria_Sub";
     $.ajax({
-        url: "../Controller/Listar-Categoria-Sub.php",
+        url: "../Controller/Controller-Categoria.php",
         type: "post",
-      //data: {"busca":busca},
+        data: {"tipo":listar_Categoria_Sub},
         success: function(data){
 			$("#listaCategoria_Sub").html(data);
         }
@@ -55,7 +57,7 @@ function guardarSub(){
             success:function(data){
                 console.log(data);
                 toastr.success('Se agrego correctamente');
-                listarCategoria();
+                listarCategoriaComboBox();
                 listarCategoria_Sub();
                 document.getElementById('idSub').value="";
             }
@@ -73,7 +75,7 @@ function eliminar(id){
             console.log(data);
             if(data=="eliminado"){
                 listarCategoria_Sub();
-                listarCategoria();
+                listarCategoriaComboBox();
                 toastr.success("Categoria eliminada");
             }else{
                 toastr.error("Error al  eliminar");
@@ -84,10 +86,12 @@ function eliminar(id){
 
 
 function verdatos(id){
+    console.log("ver datos");
+    var tipo_operacion = "obtener";
     $.ajax({
-        url: "../Controller/Obtener-Categoria.php",
+        url: "../Controller/Controller-Categoria.php",
         type: "post",
-        data: { "idcategoria": id },
+        data: { "idcategoria": id,"tipo":tipo_operacion},
         success: function(data){
 			//console.log(data);
         	var datos = JSON.parse(data);
@@ -114,7 +118,7 @@ function editarCategoria(){
         success:function(data){
             console.log(data);
             if(data =="actualizado"){
-                listarCategoria();
+                listarCategoriaComboBox();
                 listarCategoria_Sub();
                 $("#modal-categoria").modal('hide');
                 toastr.success("Categoria Actualizada");

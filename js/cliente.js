@@ -1,9 +1,9 @@
 function listaUsuario(){
-	//var busca= $("#txtbusca").val();
+	var tipo_operacion = "listar_Usuarios";
 	$.ajax({
-        url: "../Controller/Listar-Usuarios.php",
+        url: '../Controller/Controller-User.php',
         type: "post",
-      //data: {"busca":busca},
+        data: {"op":tipo_operacion},
         success: function(data){
 			$("#listaUsuario").html(data);
         }
@@ -19,6 +19,7 @@ function eliminarUsuario(id){
           console.log(data);
           if(data=="eliminado"){
                 listaUsuario();
+                toastr.success("Se eliminó al usuario");
                 tipo_operacion=null;
           }else{
               console.log("error");
@@ -40,6 +41,7 @@ function selectTipo(id){
 			if(data=="actualizado"){
                 listaUsuario();
                 tipo_operacion="";
+                toastr.success("Se actualizo al usuario");
                 document.getElementById("tipo").value="";
 			}else{
 				alert("Error al actualizar los datos");

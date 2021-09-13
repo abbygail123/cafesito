@@ -121,8 +121,6 @@
               </li>   
             </ul>          
           </li>
-         
-        
           <li class="nav-item">
             <a href="compras.php" class="nav-link">
               <i class="nav-icon fas fa-shopping-basket"></i>

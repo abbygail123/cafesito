@@ -27,6 +27,11 @@ class UserDAO
         $dni      = $obj->getDni();
         $telefono = $obj->getTelefono();
         $tipo = "Cliente";
+        $existe = "select * from usuario where usuario='$usuario'";
+        $getData = $this->cnx->query($existe);
+    if($getData->rowCount() > 0){
+        echo "existe";
+    }else{
         $sql = "insert into usuario(idusuario,nombre,apellido,dni,telefono,usuario,clave,tipo) values(?,?,?,?,?,?,?,?)";
         $rs = $this->cnx->prepare($sql);
         $rs->bindParam(1, $id);
@@ -44,6 +49,7 @@ class UserDAO
             $this->sendImageUser($cloud, $id); //llama al método de abajo, para pasar el cloud y el id
         }
         echo "registrado";
+    }
     }
     public function sendImageUser($cloud,$id)
     {
@@ -74,6 +80,7 @@ class UserDAO
             $_SESSION['clave'] = $reg->clave;
             $_SESSION['id_imagen'] = $reg->idimagen;
             $_SESSION['url'] = $reg->url_imagen;
+            $_SESSION['tipo']= $reg->tipo;
             header("Location: ../gerencia/usuario.php");   
         }else{
             header("location: ../login/login.php?e=1");
