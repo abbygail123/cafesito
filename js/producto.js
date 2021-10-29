@@ -54,6 +54,7 @@ function verDatos(id){
             $('#modal_stock').val(data.stock);
             $('#modal_imagen').attr('src',data.url_imagen);
             $("#modal_producto_ver").modal('show');
+          //  $("#GA").modal('show');
         }
     });
     

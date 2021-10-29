@@ -1,48 +1,21 @@
 <?php
-  require_once("../clases/csesion.php");
-  $sesion=new CSesion();
-  $sesion->validarSesion();
-  $conx=$sesion->conexion();
-   require("../clases/cproducto.php");
-   require("../clases/coferta.php");
-
-    ini_set('date.timezone','America/Lima');
-    $date = date('d/m/Y h:i:s a');
+session_start();
 ?>
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-
-  <title>Tienda</title>
-  <!-- <link rel="stylesheet" href="../plugins/bootstrap5/css/bootstrap.css"> -->
-  <!-- Font Awesome Icons -->
+  <title>Tienda - Ofertas De Productos</title>
   <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
-  <!-- Theme style -->
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
-  <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  <!-- Bootstrap-Table---------------->
   <link rel="stylesheet" href="../plugins/bootstrap-table/bootstrap-table.min.css">
-
-  <!-- iconos---->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-
-  <!-- toastr---->
   <link rel="stylesheet" href="../plugins/toastr/toastr.min.css">
-
-  <!--icheck---->
   <link rel="stylesheet" href="../plugins/check/check/icheck-material.min.css">
-
-  <!--tempusdominus---->
   <link rel="stylesheet" href="../plugins/datetime/datetime/build/css/tempusdominus-bootstrap-4.min.css">
-
   <style media="screen">
         img{
             max-width: 250px;
@@ -50,7 +23,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             border-radius: 10px;
         }
   </style>
-  
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -88,25 +60,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row">
           <!-- /.col-md-6 -->
-          <div class="col-lg-6"style="display:none;" id="of">
+          <div class="col-lg-6"style="" id="">
 
             <div class="card card-danger card-outline">
+              <!-- combo box acá-->
               <div class="card-header">
                 <h5 class="m-0">Registro</h5>
+                
               </div>
               <div class="card-body">
+              <select  id='listarProductoOferta' class='form-control' name='listarProductoOferta' onchange="SelectOptionProducto()" required >
+                
+              </select>
                  <div class="row">
                     <div class="col-sm">
                       <!-- text input -->
                       <div class="form-group">
-                        <label label for="ini">Precio Inicial</label>
-                        <input id="ini" class="form-control" type="number" readOnly>
+                        <label label for="precioInicial">Precio Inicial</label>
+                        <input id="precioInicial" class="form-control" type="number" readOnly>
                       </div>
                     </div>
                     <div class="col-sm">
                       <div class="form-group">
                         <label for="descu">Descuento</label>
-                        <input id="descu" min="1" class="form-control" type="number" onchange="calcularDesg();">
+                        <input id="descu" min="1" class="form-control" placeholder="%" type="number" onkeyup="AplicarDescuento();">
                       </div>
                     </div>
                   </div>   
@@ -122,54 +99,78 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-sm form-floating">
                         <label for="idTime">Duración</label>
                         <div class="input-group date" id="idTime" data-target-input="nearest">
-                            <input type="text" name="fecha" id="idfecha" class="form-control datetimepicker-input" data-target="#idTime" placeholder="<?=$date?>"/>
+                            <input type="text" name="fecha" id="idfecha" class="form-control datetimepicker-input" data-target="#idTime" placeholder=""/>
                             <div class="input-group-append" data-target="#idTime" data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="far fa-calendar"></i></div>
+                            <div class="input-group-text"><i class="far fa-calendar"></i></div>
                             </div>
                         </div>
                         
                     </div>
                   </div> 
-                  
-                  
               </div>
-              
               <div class="card-footer">
-                  <a href="oferta.php" type="button" class="btn btn-danger float-left" id="cancelar" style="display:none;">Cancelar</a>
+                  <a href="oferta.php" type="button" class="btn btn-danger float-left"  style="">Cancelar</a>
                   <button type="button" class="btn btn-primary float-right" id="buGuardar" onclick="modificarOferta();" value="0">Guardar</button>
-              </div>
+                </div>
             </div>
           </div>
+
+   <!--OFERTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-->
+<div class="col-lg-6"style="" id="">
+<div class="card card-danger card-outline">
+          <table class="table table-striped table-hover">
+			          <thead>
+				          <tr>
+					          <th>#Cod</th>
+					          <th>Nombre</th>
+                    <th>Precio</th>
+					          <th>Descuento</th>
+                    <th>Precio-Venta</th>
+                    <th>Imagen</th>
+					          <th colspan="2">Acciones</th>
+			            </tr>
+			            </thead>
+			            <tbody id="listar_Producto">
+			            </tbody>
+		            </table>
+
+</div>
+</div>
+   <!--FIN OFERTA-->
+
           <!-- /.col-md-6 -->
             <!-- tabla oferta -->
-        
                 <div class="col-lg">
                     <div  class="callout callout-danger">
                         <div  class="card-header">
                             <h5 class="card-title m-0" style="color:crimson"><i class="fas fa-gift"></i> Oferta</h5>
                         </div>
                         <div class="card-body" id="idListaO">
-                            <?=tablaOfertas($conx);?>
+                        <table class="table table-striped table-hover">
+			                    <thead>
+				                      <tr>
+					                      <th>#Cod</th>
+					                      <th>Nombre</th>
+                                <th>Precio</th>
+					                      <th>Descuento</th>
+                                <th>Precio-Venta</th>
+                                <th>Imagen</th>
+					                      <th colspan="2">Acciones</th>
+			                        </tr>
+			                    </thead>
+			                    <tbody id="listar_Producto">
+			                    </tbody>
+		                  </table>
                         </div>
                     </div> 
                 </div>
-           
-        
-        
-        
-  
-
-
         </div>
-
-
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -225,7 +226,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     
               </div>
               <div class="form-group">
-                <?=tablaDetalleO($conx);?>
+              
               </div>
               <div class="row">
                 <div class="col-sm">
@@ -286,7 +287,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!--- funciones propias-->
 <script src="../js/oferta.js"></script>
-
+<script>listarProductoOferta();</script>
 
 </body>
 </html>

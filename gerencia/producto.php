@@ -105,11 +105,11 @@ img{
                     </div>
                   </div>   
                   <!--imagen-->
-                <form action="" method="post">
+                  <form action="" method="post">
                   <div class="row">  
                   <div class="form-group col-sm-8">
                     <label>Imagen</label>
-                    <input id="file" class="form-control" type="file" />
+                    <input style="padding:1px;"id="file" class="form-control" type="file">
                   </div>
                   <div class="form-group">
                   <div class="form-floating">
@@ -129,14 +129,14 @@ img{
                     <div class="col-sm-2">
                       <div class="form-group">
                        <div class="form-floating">
-                        <label for="precio_compra">Precio Compra</label>
+                        <label for="precio_compra">P.Compra</label>
                         <input type="number"  class="form-control" id="precio_compra" name="precio_compra" autocomplete="off">
                     </div> 
                       </div>
                     </div>
                     <div class="col-sm-2">
                        <div class="form-floating">
-                      <label for="precio_venta">Precio Venta</label>
+                      <label for="precio_venta">P.Venta</label>
                       <input style="text-transform:uppercase;" type="number" class="form-control" id="precio_venta" name="precio_venta">
                        </div> 
                     </div>
@@ -147,9 +147,8 @@ img{
                       </div>
                     </div>
                   </div>  
-                  <div class="row">
-                    
-                  </div> 
+                </div>
+                 <!--
                   <div class="row">
                     <div class="form-group col-sm">
                       <label for="idMarca">¿Quieres añadir ofertas?</label>
@@ -165,7 +164,7 @@ img{
                     </div>
                   </div>
               </div>
-              
+                -->
               <div class="card-footer">
                   <a href="producto.php" type="button" class="btn btn-danger float-left" id="cancelar" style="display:none;">Cancelar</a>
                   <button type="button" class="btn btn-primary float-right" id="buGuardar" onclick="guardarProducto();" value="0">Guardar Aqui</button>
@@ -179,20 +178,8 @@ img{
           <div class="col-lg-12">
              <div  class="callout callout-danger card collapsed-card">
                  <div  class="card-header">
-                    <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i style="color:red" class="fas fa-plus"></i>
-                      </button>
-                      <button type="button" class="btn btn-tool" data-card-widget="remove">
-                        <i style="color:red" class="fas fa-times"></i>
-                      </button> 
-                    </div>
                  </div>
-                 <div class="card-body" id="idLista">
-                      <button class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#idmodaloferta-lg" id="Oferta" type="button" onclick="agregarPr();">Añadir oferta</button>
-                   
-                 </div>
-                   <h5 class="card-title m-0" style="color:crimson"><i class="fas fa-table"></i> Tabla</h5>
+                   <h3 class="card-title m-0" style="color:crimson"><i class="fas fa-table"></i> Tabla de Productos</h3>
                    <table class="table table-striped table-hover">
 			                    <thead>
 				                      <tr>
@@ -328,7 +315,7 @@ img{
   </div>
    <!-- MODAL PRODUCTO-VER -->
   <!-- Modal OFERTAS -->
- <div class="modal fade" id="" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal fade" id="GA" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
@@ -368,15 +355,6 @@ img{
                   <input id="idPrecio_total" class="form-control" type="number" readOnly >
               </div>
       
-              <div class="form-group">
-                    <label for="idTime">Duración</label>
-                      <div class="input-group date" id="idTime" data-target-input="nearest">
-                        <input type="text" name="fecha" id="fecha" class="form-control datetimepicker-input" data-target="#idTime" placeholder=""/>
-                        <div class="input-group-append" data-target="#idTime" data-toggle="datetimepicker">
-                            <div class="input-group-text"><i class="far fa-calendar"></i></div>
-                        </div>
-                      </div>
-              </div>
           </div>
           <div class="modal-footer" id="idFooterOferta">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>

@@ -7,7 +7,7 @@ session_start();
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Admin</title>
+  <title>PÁGINA PRINCIPAL</title>
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
@@ -101,7 +101,8 @@ session_start();
 					    <th>Apellido</th>
 					    <th>Dni</th>
 					    <th>Telefono</th>
-					    <th colspan="2">Tipo Usuario</th>
+              <th>Tipo Usuario</th>
+					    <th colspan="2">Acciones</th>
 			      </tr>
 			    </thead>
 			    <tbody id="listaUsuario">
@@ -118,8 +119,57 @@ session_start();
     </div>
     <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
+  <!-- /.content-modal update -->
+  <div id="modalfrm_user" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+ <div class="modal-dialog">
+  <form>
+   <div class="modal-content">
+   
+			<div class="modal-header">
+				<div class="modal-title">
+					<h3>Actualizar Tipo Cliente</h3>
+				</div>
+			</div>
+
+			<div class="modal-body">
+			<input type="hidden" id="id_usuario" value="">
+				<div class="form-group">
+					<label for="txtnombre" >Nombre</label>
+					<input readOnly type="text" class="form-control" name="txtnombre" id="txtnombre" value="" placeholder="">
+				</div>
+				<div class="form-group">
+					<label for="txtapellidos" >Apellido</label>
+					<input readOnly type="text" class="form-control" name="txtapellidos" id="txtapellidos" value="" placeholder="">
+				</div>
+				<div class="form-group">
+					<label for="txtdni" >Dni</label>
+					<input readOnly type="number" step = "any" class="form-control" name="txtdni" id="txtdni" value="" placeholder="">
+				</div>
+				<div class="form-group">
+					<label for="txttelefono" >Teléfono</label>
+					<input readOnly type="number" step = "any" class="form-control" name="txttelefono" id="txttelefono" value="" placeholder="">
+				</div>
+               
+    <div class="form-group">
+	<label for="txttipo" >Tipo Cliente</label>
+	<select  id="txttipo" class="form-control">  
+      <option id="txttipo" >Cliente</option>
+      <option id="txttipo" >Admin</option>
+  </select>	
+        </div>
+			</div>
+            <div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+					<button class="btn btn-primary" type="button" onclick="guardarCambiosCliente()">Guardar</button>
+      	    </div>	
+   
+   </div>
+  </form>
+ </div>	
+</div>
+
 </body>
+
 </html>
 <!-- ./wrapper -->
 <!-- REQUIRED SCRIPTS -->

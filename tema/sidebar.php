@@ -58,13 +58,6 @@
                   <p>Categorías</p>
                 </a>
               </li>
-            
-              <li class="nav-item">
-                <a href="distrito.php" class="nav-link">
-                  <i class="fas fa-map-marker-alt nav-icon"></i>
-                  <p>Distrito</p>
-                </a>
-              </li>
               <li class="nav-item">
                 <a href="producto.php" class="nav-link">
                   <i class="fas fa-tshirt nav-icon"></i>

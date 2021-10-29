@@ -10,6 +10,7 @@ class Producto{
     private $descripcion;
     private $id_categoria;
     private $imagen_producto;
+    
     public function __construct($id_producto,$id_usuario,$nombre_producto,$stock_producto,$precio_compra,$precio_venta,$descripcion,$id_categoria,$imagen_producto){
         $this->id_producto = $id_producto;
         $this->id_usuario  = $id_usuario;

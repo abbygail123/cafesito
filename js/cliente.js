@@ -1,4 +1,5 @@
 function listaUsuario(){
+    console.log("hola");
 	var tipo_operacion = "listar_Usuarios";
 	$.ajax({
         url: '../Controller/Controller-User.php',
@@ -9,6 +10,28 @@ function listaUsuario(){
         }
     });
 }
+
+function guardarCambiosCliente(){
+    var tipo = document.getElementById('txttipo');
+    var selected = tipo.options[tipo.selectedIndex].text;
+    console.log(selected);
+    var operacion = "actualizar_cliente";
+    var id_cliente =  $("#id_usuario").val();
+    $.ajax({
+        url: '../Controller/Controller-User.php',
+        type: 'post',
+        data :{"op":operacion,"id":id_cliente,"tipo":selected},
+        success: function(edit){
+			if(edit=="actualizado"){
+                $("#modalfrm_user").modal('hide');
+                listaUsuario();
+            }else{
+                console.log("error");
+            }
+        }
+    });
+}
+
 function eliminarUsuario(id){
     var tipo_operacion = "eliminar";
   $.ajax({
@@ -27,7 +50,28 @@ function eliminarUsuario(id){
       }
   });
 }
-function selectTipo(id){
+
+function verDatosCliente(id){
+    var tipo_operacion = "obtener_Datos_Usuario";
+    $.ajax({
+        url: '../Controller/Controller-User.php',
+        type:'post',
+        data: { "id_user": id ,"op":tipo_operacion},
+        success: function(data){
+           // console.log(data);
+            var usuario = JSON.parse(data);
+            $("#id_usuario").val(usuario.idusuario);
+			$("#txtnombre").val(usuario.nombre);
+			$("#txtapellidos").val(usuario.apellido); 
+			$("#txtdni").val(usuario.dni);
+			$("#txttelefono").val(usuario.telefono);
+			$("#txttipo").val(usuario.tipo);
+			$("#modalfrm_user").modal('show');
+        }
+    });
+}
+
+/*function selectTipo(id){
     var tipo = document.getElementById('tipo');
     var selected = tipo.options[tipo.selectedIndex].text;
     console.log(selected);
@@ -48,7 +92,7 @@ function selectTipo(id){
 			}
         }
     });
-}
+}*/
 
 const formulario = document.getElementById('formulario');
 const cuadros = document.querySelectorAll('#formulario input');
@@ -195,7 +239,7 @@ function guardarCliente(){
 
 
 
-
+/*
 function mostrar(val_)
 {
     document.getElementById('ff').style.display = 'block';		

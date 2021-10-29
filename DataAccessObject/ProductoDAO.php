@@ -17,6 +17,7 @@ class ProductoDAO{
         }
         return $res;
     }
+    //antecedentes : metodologías :  //2 cada 1 : //venta de productos online / para el otro miercoles:
     public function actualizar_Producto($id,$nombre,$descripcion,$categoria,$sub,$precio_compra,$precio_venta,$stock,$imagen){
         $sql ="UPDATE producto p INNER JOIN categoria cat on cat.idcategoria=p.idcategoria
         INNER JOIN sub_categoria sub on sub.idcategoria=cat.idcategoria

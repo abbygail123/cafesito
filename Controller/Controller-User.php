@@ -38,28 +38,24 @@ while($reg=$rs->fetchObject()){
 					<td>$reg->apellido</td>
 					<td>$reg->dni</td> 
 					<td>$reg->telefono</td>
+          <td>$reg->tipo</td>
 					<td colspan='2'>
 <a href='#' style='color:red;' onclick='eliminarUsuario($reg->idusuario)'><i class='material-icons'data-toogle='tooltip' title='Delete'>delete_forever</i></a>
-                    <select name='tipo' id='tipo' class='form-select' onchange='selectTipo($reg->idusuario);'>
-                    <option disabled selected>$reg->tipo</option>
-                  ";
-                  if($reg->tipo=="Admin"){
-                    $resultado.="
-                    <option value='$reg->idusuario'>Cliente</option>
-                  </select>	
+<a href='#' style='color:blue;' onclick='verDatosCliente($reg->idusuario)'><i class='material-icons'data-toogle='tooltip' title='Edit'>edit</i></a>
+               
                 </td>
             </tr>
-                    ";
-                  }
-                  if($reg->tipo=="Cliente"){
-                    $resultado.="
-                    <option value='$reg->idusuario'>Admin</option>
-                  </select>	
-                </td>
-            </tr>
-                    ";
-                  }        
+                    ";                  
 }
 echo $resultado;
+}else if($op=="obtener_Datos_Usuario"){
+    $id = $_POST['id_user'];
+    $data = $userDao->obtener_Datos($id);
+    echo json_encode($data);
+}else if($op=="actualizar_cliente"){
+    $id=$_POST['id'];
+    $tipo=$_POST['tipo'];
+    $update = $userDao->editar_Tipo_Cliente($id,$tipo);
+    echo $update;
 }
 ?>

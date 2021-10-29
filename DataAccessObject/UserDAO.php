@@ -93,7 +93,16 @@ class UserDAO
        return $rs;
    }
 
-   public function actualizarCliente($tipo,$id){
+   public function obtener_Datos($id_usuario){
+       $sql ="select * from usuario where idusuario=?";
+       $rs = $this->cnx->prepare($sql);
+       $rs->bindParam(1,$id_usuario);
+       $rs->execute();
+       $reg = $rs->fetchObject();//obtiene los (objetos=datos) de la base de datos
+       return $reg;
+   }
+
+   public function editar_Tipo_Cliente($id,$tipo){
         $sql = "UPDATE usuario  SET tipo = ? WHERE idusuario =?";
         $rs = $this->cnx->prepare($sql);
         $rs->bindParam(1,$tipo);
@@ -104,6 +113,7 @@ class UserDAO
         }else{
             echo "error";
         }
+        
    }
 
    public function eliminarUsuario($idUsuario){
