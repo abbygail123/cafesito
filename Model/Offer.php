@@ -4,7 +4,6 @@ class Offer {
     
     private $idOferta;
     private $idProducto;
-    private $idUsuario;
     private $fechaDuracionOferta;
     private $totalDescuento;
     

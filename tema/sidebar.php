@@ -25,7 +25,7 @@
           <img src="<?php echo $_SESSION['url']; ?>" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="perfil.php" class="d-block"><?php echo $_SESSION['nombre'] ." ". $_SESSION['apellido'];?></a>
+          <a href="perfil.php" class="d-block"><?php echo $_SESSION['nombre'] ."<br>". $_SESSION['apellido'];?></a>
         </div>
       </div>
 
@@ -67,15 +67,10 @@
               <li class="nav-item">
                 <a href="oferta.php" class="nav-link">
                   <i class="fas fa-gift nav-icon"></i>
-                  <p>Ofertas</p>
+                  <p>Ofertas Y Ventas</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="usuario.php" class="nav-link">
-                  <i class="fas fa-user-circle nav-icon"></i>
-                  <p>Usuario</p>
-                </a>
-              </li>
+             
             </ul>
           </li>
           <!-- --------- -->

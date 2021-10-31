@@ -124,6 +124,7 @@
                 <?php echo $_SESSION['nombre'] ." ". $_SESSION['apellido'];?> 
                 </p>
               </li>
+              <br>
               <!-- Menu Body -->
               <!-- Menu Footer-->
               <li class="user-footer">

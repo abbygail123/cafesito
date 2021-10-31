@@ -146,7 +146,7 @@ function guardarProducto(){
         success:function(e){
             if(e=="insertado"){
                 toastr.success('Se agrego correctamente');
-                limpiarTextField();
+                limpiarText();
                 listar_Producto();
             }else{
                 console.log("error");
@@ -155,7 +155,7 @@ function guardarProducto(){
     });
 }
 
-function limpiarTextField(){
+function limpiarText(){
     document.getElementById("categoria_producto").value="";
     document.getElementById("stock").value="";
     document.getElementById("precio_compra").value="";
@@ -176,6 +176,7 @@ function listar_Producto(){
         type:'post',
         data:{"tipo":tipo_operacion},
         success:function(data){
+            console.log(data);
             $("#listar_Producto").html(data);
         }
     });

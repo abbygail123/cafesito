@@ -9,5 +9,10 @@
 <body>
     <h5>Index </h5>
     <a href="login/login.php">Login</a>
+    <?php
+     date_default_timezone_set('America/Lima');    
+     $fechaOferta = date('d-m-Y h:i:s a');  
+     echo $fechaOferta;
+    ?>
 </body>
 </html>

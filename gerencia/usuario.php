@@ -38,7 +38,7 @@ session_start();
   <?php include("../tema/navbar.php");?>
   <!-- /.navbar -->
      <!-- menu agregado cierre de session--> 
-     <?php include("../tema/sidebar.php");?>
+  <?php include("../tema/sidebar.php");?>
     <!-- /.sidebar -->
 
    <!-- Content Wrapper. Contains page content -->
