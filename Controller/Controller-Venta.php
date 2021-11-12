@@ -13,7 +13,7 @@ if($tipo_operacion=="ListarProductoVender"){
             <td>$reg->stock</td>
             <td><img src='$reg->url_imagen'></td>
             <td colspan='2'>
-            <a class='btn btn-info' style='color:white; text-decoration:none'type='button' href='http://localhost/cafesito/gerencia/producto.php' >Editar</a>
+            <a class='btn btn-info' style='color:white; text-decoration:none'type='button' href='../View/View-Producto.php' >Editar</a>
             ";
             $existe = $venderDAO->existeVentaProducto($reg->idproducto);
             if($existe->rowCount()==1){

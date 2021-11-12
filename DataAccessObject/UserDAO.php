@@ -71,19 +71,27 @@ class UserDAO
         if($rs->rowCount()>0){
             session_start();
             $reg = $rs->fetchObject();
-            $_SESSION['id'] = $reg->idusuario;
-            $_SESSION['nombre'] = $reg->nombre;
-            $_SESSION['apellido'] = $reg->apellido;
-            $_SESSION['dni']= $reg->dni;
-            $_SESSION['telefono'] = $reg->telefono;
-            $_SESSION['usuario'] = $reg->usuario;
-            $_SESSION['clave'] = $reg->clave;
-            $_SESSION['id_imagen'] = $reg->idimagen;
-            $_SESSION['url'] = $reg->url_imagen;
-            $_SESSION['tipo']= $reg->tipo;
-            header("Location: ../gerencia/usuario.php");   
+            $_SESSION['datosUser'];
+            $arregloNuevo[] = array(
+                'id' => $reg->idusuario,
+                'nombre' => $reg->nombre,
+                'apellido' => $reg->apellido,
+                'dni' => $reg->dni,
+                'telefono' =>  $reg->telefono,
+                'usuario' => $reg->usuario,
+                'clave' =>  $reg->clave,
+                'id_imagen' => $reg->idimagen,
+                'url' => $reg->url_imagen,
+                'tipo' => $reg->tipo,
+            );
+            if(isset($arregloNuevo)){
+                $_SESSION['datosUser'] =$arregloNuevo;
+            }else{
+                unset($_SESSION['datosUser']);
+            }
+            //header("Location: ../View/View-ListaUsuario.php");   
         }else{
-            header("location: ../login/login.php?e=1");
+            header("location: ../View/View-Login.php?e=1");
         }
    }
 

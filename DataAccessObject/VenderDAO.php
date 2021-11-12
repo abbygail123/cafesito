@@ -18,13 +18,19 @@ class VenderDAO{
     }
 
     public function ListarProductoVender(){
-        $idusuario= $_SESSION['id'];
+        if(isset($_SESSION['datosUser'])){
+            $arreglo =  $_SESSION['datosUser'];
+              for ($i=0; $i<count($arreglo); $i++) { 
+                  $idUsuario=$arreglo[$i]['id'];
+                  //$usuario = $arreglo[$i]['usuario'];
+              }
+        }
         $sql="select p.idproducto,p.nombre,p.precio_venta,p.stock, img.url_imagen
              from usuario u inner join producto p on p.idusuario=u.idusuario 
              inner join imagen_producto img on img.idproducto=p.idproducto 
              where u.idusuario=?";
         $rs = $this->cnx->prepare($sql);
-        $rs->bindParam(1,$idusuario);
+        $rs->bindParam(1,$idUsuario);
         $rs->execute();
         return $rs;
     } 

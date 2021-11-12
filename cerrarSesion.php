@@ -1,5 +1,9 @@
 <?php
 session_start();
+unset($_SESSION['datosUser']);
 session_destroy();
-header("Location: http://localhost/cafesito/login/login.php");
+if(!isset($_SESSION['datosUser'])){
+    header("Location: View/View-Login.php");
+}
+
 ?>

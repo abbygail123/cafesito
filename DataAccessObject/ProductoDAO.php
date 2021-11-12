@@ -100,7 +100,12 @@ class ProductoDAO{
         return $rs;
     }
     public function listar_Producto(){
-        $usuario = $_SESSION['usuario'];
+        if(isset($_SESSION['datosUser'])){
+            $arreglo =  $_SESSION['datosUser'];
+              for ($i=0; $i<count($arreglo); $i++) { 
+                $usuario=$arreglo[$i]['usuario'];
+              }
+        }
         $sql="SELECT * FROM usuario u  INNER JOIN  producto p on p.idusuario=u.idusuario
         INNER JOIN categoria c on c.idcategoria=p.idcategoria
         INNER join sub_categoria sb on sb.idcategoria=c.idcategoria

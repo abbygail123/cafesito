@@ -41,6 +41,7 @@ class OfertaDAO{
             echo "error";
         }
     }
+    
     //eliminar producto del sector oferta
     public function eliminarOferta($idProducto){
         $sql = "delete from oferta where idProducto=?";
@@ -107,7 +108,14 @@ class OfertaDAO{
     }
 
     public function listarOferta() {
-        $idUsuario = $_SESSION['id'];
+        //$idUsuario = $_SESSION['id'];
+        if(isset($_SESSION['datosUser'])){
+            $arreglo =  $_SESSION['datosUser'];
+              for ($i=0; $i<count($arreglo); $i++) { 
+                  $idUsuario=$arreglo[$i]['id'];
+                  //$usuario = $arreglo[$i]['usuario'];
+              }
+        }
         $sql = "select  ofe.idOferta,p.idproducto,p.nombre, ofe.fechaOferta,fechaDuracionOferta,ofe.totalDescuento,ofe.precioFinal,p.precio_venta
         from usuario u inner join producto p on u.idusuario=p.idusuario
         inner join oferta ofe on p.idproducto=ofe.idProducto

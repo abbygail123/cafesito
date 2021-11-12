@@ -1,6 +1,13 @@
 <?php
 require_once("../DataAccessObject/ProductoDAO.php");
 require_once("../Model/Product.php");
+if(isset($_SESSION['datosUser'])){
+    $arreglo =  $_SESSION['datosUser'];
+      for ($i=0; $i<count($arreglo); $i++) { 
+          $id_usuario=$arreglo[$i]['id'];
+          $usuario = $arreglo[$i]['usuario'];
+      }
+}
 $productoDAO = new ProductoDAO();
 $tipo_operacion = $_POST['tipo'];
 if($tipo_operacion=="listarComboBox"){
@@ -14,7 +21,6 @@ if($tipo_operacion=="listarComboBox"){
   echo $combo;
 }else if($tipo_operacion=="insertar_producto"){
   $id_producto = $productoDAO->generateRamdonCode();
-  $id_usuario  = $_SESSION['id'];
   $nombre = $_POST['nombre_producto'];
   $stock = $_POST['stock'];
   $precio_compra = $_POST['precio_compra'];
@@ -26,7 +32,6 @@ if($tipo_operacion=="listarComboBox"){
   $resultado = $productoDAO->insertarProducto($modelProduct);
   echo $resultado;
 }else if($tipo_operacion=="listar_producto"){
-  $usuario = $_SESSION['usuario'];
   $rs = $productoDAO->listar_Producto();
   $resultado="";
   while($reg=$rs->fetchObject()){
