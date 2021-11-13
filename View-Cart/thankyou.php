@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 include("../Feature/conexion.php");
 $arreglo = $_SESSION['carrito'];

@@ -188,7 +188,6 @@ if(isset($_SESSION['carrito'])){
   <script src="../Content/js/jquery.magnific-popup.min.js"></script>
   <script src="../Content/js/aos.js"></script>
   <script src="../Content/js/main.js"></script>     
-
   <script>
     $(document).ready(function(){
       $(".btnEliminar").click(function(event){

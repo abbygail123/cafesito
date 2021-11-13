@@ -3,7 +3,12 @@ require_once("../DataAccessObject/OfertaDAO.php");
 $ofertaDAO = new OfertaDAO();
 $tipo_operacion = $_POST['tipo'];
 if($tipo_operacion=="listarProductoOferta"){
-    $id_usuario  = $_SESSION['id'];
+    if(isset($_SESSION['datosUser'])){
+      $arreglo =  $_SESSION['datosUser'];
+      for ($i=0; $i<count($arreglo); $i++) { 
+        $id_usuario=$arreglo[$i]['id'];
+      }
+    }
     $rs = $ofertaDAO->listarProductoComboBox($id_usuario);
     $option="<option name='combo' id='combo'>Seleccione</option>";
     while($reg=$rs->fetchObject()){

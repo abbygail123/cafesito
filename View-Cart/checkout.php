@@ -20,7 +20,6 @@ $arreglo = $_SESSION['carrito'];
     <link rel="stylesheet" href="../Content/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="../Content/css/aos.css">
     <link rel="stylesheet" href="../Content/css/style.css">
-    
   </head>
   <body>
   

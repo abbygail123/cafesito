@@ -17,10 +17,8 @@ session_start();
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <!-- Bootstrap-Table---------------->
   <link rel="stylesheet" href="../Desing/plugins/bootstrap-table/bootstrap-table.min.css">
-
   <!-- iconos---->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-
   <!-- toastr---->
   <link rel="stylesheet" href="../Desing/plugins/toastr/toastr.min.css">
 

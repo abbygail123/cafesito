@@ -4,7 +4,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-
   <title>Registro De Usuario</title>
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="../Desing/plugins/fontawesome-free/css/all.min.css">
@@ -21,9 +20,7 @@
   <!-- file input-->
   <link media="all" rel="stylesheet" type="text/css" href="../Desing/plugins/file-input/css/fileinput.css" />
   <link rel="stylesheet" href="../Desing/RegistroUsuario.css">
-
 </head>
-
 <body style="background-image: url('https://images.pexels.com/photos/5531542/pexels-photo-5531542.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940')">
   <!-- Main content -->
   <div class="container mt-5">
@@ -34,7 +31,6 @@
             <h5 class="m-0">Registro</h5>
           </div>
           <div class="card-body">
-
             <div class="row">
               <div class="col-sm">
                 <!-- text input -->

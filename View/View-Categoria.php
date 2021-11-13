@@ -132,18 +132,7 @@ session_start();
                 </div>
             </div>
         
-            <div class="row">
-                <div class="col-lg">
-                  <div class="card card-dark card-outline">
-                      <div class="card-header">
-                        <h5 class="m-0">Subcategorías</h5>
-                      </div>
-                      <div class="card-body" id="idListaSub">
-                      
-                      </div> 
-                  </div> 
-                </div>
-            </div>
+            
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
