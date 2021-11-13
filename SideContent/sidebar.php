@@ -29,7 +29,7 @@
           <img src="<?php echo $arreglo[$i]['url']; ?>" class="img-circle" alt="User Image">
         </div>
         <div class="info">
-          <a href="perfil.php" class="d-block"><?php echo $arreglo[$i]['nombre'] ."<br>".$arreglo[$i]['apellido'];?></a>
+          <a href="#" class="d-block"><?php echo $arreglo[$i]['nombre'] ."<br>".$arreglo[$i]['apellido'];?></a>
         </div>
       </div>
     <?php

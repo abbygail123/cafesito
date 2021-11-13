@@ -137,9 +137,9 @@
 
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="float-left ">
-                  <a href="perfil.php" class="btn btn-info btn-sm"><i class="far fa-address-card"></i></a>
-                </div>
+                <!--<div class="float-left ">
+                  <a href="#" class="btn btn-info btn-sm"><i class="far fa-address-card"></i></a>
+                </div>-->
                 <div class="float-right">
                   <a href="../cerrarSesion.php" class="btn btn-danger btn-sm center-block"><i class="fas fa-sign-out-alt"></i></a>
                 </div>

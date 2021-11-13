@@ -62,7 +62,7 @@ if(isset($_GET['id'])){
 
 
 
-    
+    <!-- ofertas -->
     <div class="site-section block-3 site-blocks-2 bg-light">
       <div class="container">
         <div class="row justify-content-center">
