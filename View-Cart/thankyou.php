@@ -1,5 +1,6 @@
 <?php
 session_start();
+//hola
 error_reporting(0);
 include("../Feature/conexion.php");
 $arreglo = $_SESSION['carrito'];
@@ -37,7 +38,7 @@ unset($_SESSION['carrito']);
       <div class="container">
         <div class="row">
 
-        
+
           <div class="col-md-12 text-center">
             <span class="icon-check_circle display-3 text-success"></span>
             <h2 class="display-3 text-black">Gracias Por su Compra!</h2>
