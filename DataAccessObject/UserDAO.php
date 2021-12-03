@@ -63,7 +63,7 @@ class UserDAO
 
     public function LoginUser($username,$password){ 
         $sql="SELECT u.idusuario,u.nombre,u.apellido,u.dni,u.telefono,u.usuario,u.clave,u.tipo,i.idimagen,i.url_imagen
-        FROM usuario u inner join imagen_usuario i  WHERE u.usuario = ? and u.clave =?";    
+        FROM usuario u inner join imagen_usuario i  on i.idusuario=u.idusuario WHERE u.usuario = ? and u.clave =?";    
         $rs = $this->cnx->prepare($sql);
         $rs->bindParam(1,$username);
         $rs->bindParam(2,$password);
@@ -135,19 +135,5 @@ class UserDAO
             echo "error";
         }
    }
-/*
-ejemplos de los metodos de arriba;
-    $a =5;
-    $b =6;
-    public function darValores(){ 
-        $this->sumar($a,$b);
-    }
-    public function sumar($p1,$p2){ 
-         echo $resultado = $p1 + $p2;
-    }
-*/
 }
-/*
-$clase = new UserDAO(); //se ejecuta primero el constructor <--
-$clase->LoginUser("alexander","alexander");*/
 ?>

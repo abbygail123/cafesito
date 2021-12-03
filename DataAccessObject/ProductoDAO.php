@@ -74,7 +74,7 @@ class ProductoDAO{
         INNER JOIN categoria c on c.idcategoria=p.idcategoria
         INNER join sub_categoria sb on sb.idcategoria=c.idcategoria
         INNER JOIN imagen_producto i on i.idproducto=p.idproducto
-        where p.idproducto='$id_producto'";
+        where p.idproducto=?";
         $rs = $this->cnx->prepare($sql);
         $rs->bindParam(1,$id_producto);
         $rs->execute();

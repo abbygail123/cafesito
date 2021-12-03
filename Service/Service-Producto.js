@@ -144,6 +144,7 @@ function guardarProducto(){
         cache: false,
         processData:false,
         success:function(e){
+            console.log(e);
             if(e=="insertado"){
                 toastr.success('Se agrego correctamente');
                 limpiarText();
@@ -176,7 +177,6 @@ function listar_Producto(){
         type:'post',
         data:{"tipo":tipo_operacion},
         success:function(data){
-            console.log(data);
             $("#listar_Producto").html(data);
         }
     });
